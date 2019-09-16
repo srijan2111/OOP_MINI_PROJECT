@@ -115,7 +115,7 @@ do {
     case 3:
         i.modify();
         break;
-
+ok
 
 }
 } while(ch!= 0);
