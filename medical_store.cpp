@@ -5,6 +5,7 @@
 #include<cstdlib>
 #include<unistd.h>
 
+using namespace std;
 
 class store{
 public:
@@ -28,10 +29,30 @@ void display();
 };
 
 void store :: create_item(){
-	fstream fout;
-	inventory i;
-	fout.open("inventory.txt",ios::app);
-	i.add_item();
-	fout.write((char*)&i,sizeof(i));
-	fout.close();
+  fstream fout;
+  store s;
+  fout.open("database.txt",ios::app);
+  s.add_item();
+  fout.write((char*)&s,sizeof(s));
+  fout.close();
+
+}
+
+int main(){
+store i;
+int ch;
+do {
+ cout<<"Enter your choice"<<endl;
+ cout<<"1. add item.\n 2.Search item \n 3. modify item \n 4.delete item\n 5.Display item";
+ cin>>ch;
+ switch(ch){
+   case 1:
+     i.create_item();
+     break;
+
+}
+} while(ch!= 0);
+
+return 0;
+
 }
