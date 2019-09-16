@@ -8,10 +8,10 @@
 using namespace std;
 
 class store{
-public:
+protected:
   int code,cost,quantity;
   char name[20],DOE[10];
-
+public:
   void add_item(){
     cout<<"CODE : "<<endl;
     cin>>code;
@@ -24,6 +24,7 @@ public:
     cout<<"Date Of Expiry : "<<endl;
     cin>>DOE;
   }
+
   void show_item(){
       cout<<"CODE : "<<code<<endl;
       cout<<"NAME : "<<name<<endl;
@@ -45,8 +46,8 @@ void store :: create_item(){
   s.add_item();
   fout.write((char*)&s,sizeof(s));
   fout.close();
-
 }
+
 void store :: search_item(){
     fstream fin;
     store s;
@@ -97,7 +98,6 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
     }
 
 }
-
 int main(){
 store i;
 int ch;
