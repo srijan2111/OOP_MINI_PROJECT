@@ -9,7 +9,8 @@ using namespace std;
 
 class store{
 protected:
-  int code,cost,quantity;
+  int cost,quantity;
+  long int code;
   char name[20],DOE[10];
 public:
   void add_item(){
@@ -21,7 +22,7 @@ public:
     cin>>cost;
     cout<<"QUANTITY : "<<endl;
     cin>>quantity;
-    cout<<"Date Of Expiry : "<<endl;
+    cout<<"Date Of Expiry(DD/MM/YY) : "<<endl;
     cin>>DOE;
   }
   void show_item(){
@@ -55,14 +56,14 @@ void store :: displayALL()
   system("clear");
   fstream file;
   file.open("database.txt");
-  cout<<" -----------------------------------------------------------------------------------------------------------------------"<<endl;
+  cout<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
   cout<<"|"<<setw(15)<<"Item Code"<<"\t|"<<setw(15)<<"Item Name"<<"\t|"<<setw(15)<<"Quantity"<<"\t|"<<setw(15)<<"Cost"<<"\t|"<<setw(15)<<"Expiry Date"<<"\t|"<<endl;
-  cout<<" -----------------------------------------------------------------------------------------------------------------------"<<endl;
+  cout<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
   while(file.read((char*)&s,sizeof(s))){
     while (!file.eof()) {
-            //cout<<" -----------------------------------------------------------------------------------------------------------------------"<<endl;
+            //cout<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
             cout<<"|"<<setw(15)<<s.code<<"\t|"<<setw(15)<<s.name<<"\t|"<<setw(15)<<s.quantity<<"\t|"<<setw(15)<<s.cost<<"\t|"<<setw(15)<<s.DOE<<"\t|"<<endl;
-            cout<<" -----------------------------------------------------------------------------------------------------------------------"<<endl;
+            cout<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
             break;
     }
   }
@@ -101,7 +102,7 @@ void store :: search_item(){
 void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar ekda....................
     fstream file;
     store s;
-    system("clear");
+    //system("clear");
     int code , flag = 0 , temp = 0;
     long int pos;
     file.open("database.txt",ios::in);
@@ -110,6 +111,7 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
     while(file.read((char*)&s,sizeof(s))){
         if(code == s.code){
             flag = 1;
+            //cout<<"found!";
             break;
         }
         else
@@ -118,10 +120,10 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
 
     if(flag == 1){
 
-        pos = (temp) * sizeof(s);
+        pos = (temp)*sizeof(s);
         file.seekp(pos);
         cout<<"Enter a new record";
-        s.add_item();
+        s.create_item();
         file.write((char*)&s,sizeof(s));
         cout<<"New record Created"<<endl;
         file.close();
@@ -133,21 +135,21 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
 }
 void store :: delete_item(){
     fstream file;
-    system("clear");
+    //system("clear");
     store s;
     int flag=0;
+    long int del;                                       ///for delete
+    file.open("database.txt");
     fstream file1;
-    long int del;
-    file.open("database.txt",ios::binary);
+    file1.open("tempdel.txt",ios::app);
     file.seekg(0,ios::beg);
-    file1.open("tempdel.txt");
     cout<<"\n\t\tEnter the Item Code: ";
     cin>>del;
     while(file.read((char*)&s,sizeof(s)))
 	{
-		if(s.code!=del)
+		if(del!=s.code)
 		{
-			file1.write((char*)&s,sizeof(s));
+            file1.write((char*)&s,sizeof(s));
 		}
 		else
 		{
@@ -158,11 +160,14 @@ void store :: delete_item(){
 	{
 		cout<<"\n\n\tItem not found";
 	}
-	else
+	else{
 		cout<<"\n\n\tRecord Deleted ..";
-        cout<<"\n\nPress Enter to return to Main Menu\t\t";
-        cin.ignore();
-        cin.get();
+    }
+    cout<<"\n\nPress Enter to return to Main Menu\t\t";
+    cin.ignore();
+    cin.get();
+    file.close();
+    file1.close();
 
     remove("database.txt");
     rename("tempdel.txt","database.txt");
@@ -173,6 +178,7 @@ int main(){
 store i;
 int ch;
 do {
+    //system("clear");
  cout<<"Enter your choice"<<endl;
  cout<<"1. Add item.\n2.Display All Records\n 3.Search item \n 4. modify item \n 5.delete item\n 6.Display item";
  cin>>ch;
