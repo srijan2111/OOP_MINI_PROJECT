@@ -99,7 +99,7 @@ void store :: search_item(){
     fin.close();
 }
 
-void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar ekda....................
+void  store :: modify() {
     fstream file;
     store s;
     //system("clear");
@@ -187,7 +187,7 @@ int ch;
 do {
     //system("clear");
  cout<<"Enter your choice"<<endl;
- cout<<"1. Add item.\n2.Display All Records\n 3.Search item \n 4. modify item \n 5.delete item\n 6.Display item\n 7.Exit";
+ cout<<"1. Add item.\n2.Display All Records\n 3.Search item \n 4. modify item \n 5.delete item\n 6.Exit";
  cin>>ch;
  switch(ch){
     case 1:
@@ -205,7 +205,7 @@ do {
     case 5:
         i.delete_item();
         break;
-    case 7:
+    case 6:
         return
 
 }
