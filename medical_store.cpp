@@ -38,6 +38,7 @@ void displayALL();
 void search_item();
 void modify();
 void delete_item();
+void purchase();
 };
 
 void store :: create_item(){
@@ -173,12 +174,52 @@ void store :: delete_item(){
 
 }
 
+void store :: purchase(){
+fstream file;
+store s;
+int code,flag = 0,temp = 0,amt,bill;
+file.open("database.txt");
+cout<<"Enter code of item : ";
+cin>>code;
+while(file.read((char*)&s,sizeof(s))){
+  if(code == s.code){
+    flag = 1;
+    break;
+  }else
+    temp++;
+}
+if (flag == 1){
+  long int pos = (temp)*sizeof(s);
+  file.seekp(pos);
+  file.read((char*)&s,sizeof(s));
+  cout<<"Enter number of item"<<endl;
+  cin>>amt;
+  if((s.quantity - amt) >= 0){
+  bill = amt * s.cost;
+  cout<<bill;
+  file.seekp(pos);
+  s.quantity = s.quantity - amt;
+  file.write((char*)&s,sizeof(s));
+  file.close();
+}
+  else
+  cout<<"item not available";
+
+
+
+}
+else
+  cout<<"File not found";
+
+
+}
+
 int main(){
 store i;
 int ch;
 do {
  cout<<"Enter your choice"<<endl;
- cout<<"1. Add item.\n2.Display All Records\n 3.Search item \n 4. modify item \n 5.delete item\n 6.Display item";
+ cout<<"1. Add item.\n2.Display All Records\n 3.Search item \n 4. modify item \n 5.delete item\n 6.Purchase";
  cin>>ch;
  switch(ch){
     case 1:
@@ -195,6 +236,9 @@ do {
         break;
     case 5:
         i.delete_item();
+        break;
+    case 6:
+        i.purchase();
         break;
 
 }
