@@ -178,7 +178,7 @@ store i;
 int ch;
 do {
  cout<<"Enter your choice"<<endl;
- cout<<"1. Add Item.\n2. Display All Records\n3. Search Item\n4. Modify Item \n5. Delete Item\n 6.Display Item\n";
+ cout<<"1. Add Item.\n2. Display All Records\n3. Search Item\n4. Modify Item \n5. Delete Item\n6.Display Item\n";
  cin>>ch;
  switch(ch){
     case 1:
