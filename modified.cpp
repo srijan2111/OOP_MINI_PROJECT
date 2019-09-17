@@ -42,7 +42,7 @@ void delete_item();
 
 void store :: create_item(){
   fstream fout;
-  system("clear");
+  //system("clear");
   store s;
   fout.open("database.txt",ios::app);
   s.add_item();
@@ -53,7 +53,7 @@ void store :: create_item(){
 void store :: displayALL()
 {
   store s;
-  system("clear");
+  //system("clear");
   fstream file;
   file.open("database.txt");
   cout<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
@@ -77,7 +77,7 @@ void store :: displayALL()
 void store :: search_item(){
     fstream fin;
     store s;
-    system("clear");
+    //system("clear");
     int code,flag = 0;
     fin.open("database.txt",ios::in);
     cout<<"Enter a Code"<<endl;
@@ -104,32 +104,35 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
     store s;
     //system("clear");
     int code , flag = 0 , temp = 0;
-    long int pos;
-    file.open("database.txt",ios::in);
+    //long int pos;
+    file.open("database.txt");
     cout<<"Enter a code"<<endl;
     cin>>code;
     while(file.read((char*)&s,sizeof(s))){
         if(code == s.code){
             flag = 1;
             //cout<<"found!";
-            break;
+            return;
         }
         else
             temp++;
+
     }
 
     if(flag == 1){
-
-        pos = (temp)*sizeof(s);
+        long int pos = (temp)*sizeof(s);
         file.seekp(pos);
         cout<<"Enter a new record";
-        s.create_item();
+        s.add_item();
         file.write((char*)&s,sizeof(s));
         cout<<"New record Created"<<endl;
-        file.close();
+
     }
+
+
     cout<<"\n\nPress Enter to return to Main Menu\t\t";
         cin.ignore();
+        file.close();
         cin.get();
 
 }
