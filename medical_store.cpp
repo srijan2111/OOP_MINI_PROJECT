@@ -8,10 +8,10 @@
 using namespace std;
 
 class store{
-public:
+protected:
   int code,cost,quantity;
   char name[20],DOE[10];
-
+public:
   void add_item(){
     cout<<"CODE : "<<endl;
     cin>>code;
@@ -29,13 +29,14 @@ public:
       cout<<"NAME : "<<name<<endl;
       cout<<"COST : "<<cost<<endl;
       cout<<"QUANTITY : "<<quantity<<endl;
-      cout<<"Date Of Expiry : "<<DOE<<endl;
+      cout<<"Date Of Expiry(DD/MM/YY) : "<<DOE<<endl;
       cout<<"-------------------------------------------------------"<<endl;
   }
 void create_item();
 void display();
 void search_item();
 void modify();
+void delete_item();
 };
 
 void store :: create_item(){
@@ -97,6 +98,39 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
     }
 
 }
+void store :: delete_item(){
+    fstream file;
+    store s;
+    int flag=0;
+    fstream file1;
+    long int del;
+    file.open("database.txt",ios::binary);
+    file.seekg(0,ios::beg);
+    file1.open("tempdel.txt");
+    cout<<"\n\t\tEnter the Item Code: ";
+    cin>>del;
+    while(file.read((char*)&s,sizeof(s)))
+	{
+		if(s.code!=del)
+		{
+			file1.write((char*)&s,sizeof(s));
+		}
+		else
+		{
+			flag=1;
+		}
+	}
+	if(flag==0)
+	{
+		cout<<"\n\n\tItem not found";
+	}
+	else
+		cout<<"\n\n\tRecord Deleted ..";
+
+    remove("database.txt");
+    rename("tempdel.txt","database.txt");
+
+}
 
 int main(){
 store i;
@@ -115,7 +149,9 @@ do {
     case 3:
         i.modify();
         break;
-ok
+    case 4:
+        i.delete_item();
+        break;
 
 }
 } while(ch!= 0);
