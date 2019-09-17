@@ -33,7 +33,7 @@ public:
       cout<<"-------------------------------------------------------"<<endl;
   }
 void create_item();
-void display();
+void displayALL();
 void search_item();
 void modify();
 void delete_item();
@@ -48,6 +48,27 @@ void store :: create_item(){
   fout.close();
 
 }
+void store :: displayALL()
+{
+  store s;
+  fstream file;
+  file.open("database.txt");
+  cout<<"-------------------------------------------------------------------------------------------------------------------------"<<endl;
+  cout<<"|"<<setw(15)<<"Item Code"<<"\t|"<<setw(15)<<"Item Name"<<"\t|"<<setw(15)<<"Quantity"<<"\t|"<<setw(15)<<"Cost"<<"\t|"<<setw(15)<<"Expiry Date"<<"\t|"<<endl;
+  cout<<"-------------------------------------------------------------------------------------------------------------------------"<<endl;
+  while(file.read((char*)&s,sizeof(s))){
+    while (!file.eof()) {
+            cout<<"-------------------------------------------------------------------------------------------------------------------------"<<endl;
+            cout<<"|"<<setw(15)<<s.code<<"\t|"<<setw(15)<<s.name<<"\t|"<<setw(15)<<s.quantity<<"\t|"<<setw(15)<<s.cost<<"\t|"<<setw(15)<<s.DOE<<"\t|"<<endl;
+            cout<<"-------------------------------------------------------------------------------------------------------------------------"<<endl;
+            break;
+    }
+  }
+
+   file.close();
+   cout<<endl;
+}
+
 void store :: search_item(){
     fstream fin;
     store s;
@@ -137,19 +158,22 @@ store i;
 int ch;
 do {
  cout<<"Enter your choice"<<endl;
- cout<<"1. add item.\n 2.Search item \n 3. modify item \n 4.delete item\n 5.Display item";
+ cout<<"1. Add item.\n2.Display All Records\n 3.Search item \n 4. modify item \n 5.delete item\n 6.Display item";
  cin>>ch;
  switch(ch){
     case 1:
         i.create_item();
         break;
     case 2:
-        i.search_item();
+        i.displayALL();
         break;
     case 3:
-        i.modify();
+        i.search_item();
         break;
     case 4:
+        i.modify();
+        break;
+    case 5:
         i.delete_item();
         break;
 
