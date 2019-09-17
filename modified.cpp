@@ -7,6 +7,7 @@
 
 using namespace std;
 
+
 class store{
 protected:
   int cost,quantity;
