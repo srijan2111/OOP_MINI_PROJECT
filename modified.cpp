@@ -103,7 +103,8 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
     fstream file;
     store s;
     //system("clear");
-    int code , flag = 0 , temp = 0;
+    int flag = 0 , temp = 0;
+    long int code;
     //long int pos;
     file.open("database.txt");
     cout<<"Enter a code"<<endl;
@@ -112,11 +113,11 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
         if(code == s.code){
             flag = 1;
             //cout<<"found!";
-            return;
+            break;
         }
-        else
+        else{
             temp++;
-
+        }
     }
 
     if(flag == 1){
@@ -126,13 +127,16 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
         s.add_item();
         file.write((char*)&s,sizeof(s));
         cout<<"New record Created"<<endl;
+        file.close();
 
     }
-
+else{
+    cout<<"record nof";
+}
 
     cout<<"\n\nPress Enter to return to Main Menu\t\t";
         cin.ignore();
-        file.close();
+
         cin.get();
 
 }
