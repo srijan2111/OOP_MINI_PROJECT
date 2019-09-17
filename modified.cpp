@@ -25,12 +25,12 @@ public:
     cin>>DOE;
   }
   void show_item(){
-      cout<<"CODE : "<<code<<endl;
-      cout<<"NAME : "<<name<<endl;
-      cout<<"COST : "<<cost<<endl;
-      cout<<"QUANTITY : "<<quantity<<endl;
-      cout<<"Date Of Expiry(DD/MM/YY) : "<<DOE<<endl;
-      cout<<"-------------------------------------------------------"<<endl;
+      cout<<"\t\tCODE : "<<code<<endl;
+      cout<<"\t\tNAME : "<<name<<endl;
+      cout<<"\t\tCOST : "<<cost<<endl;
+      cout<<"\t\tQUANTITY : "<<quantity<<endl;
+      cout<<"\t\tDate Of Expiry(DD/MM/YY) : "<<DOE<<endl;
+      cout<<"\t\t-------------------------------------------------------"<<endl;
   }
 void create_item();
 void displayALL();
@@ -41,6 +41,7 @@ void delete_item();
 
 void store :: create_item(){
   fstream fout;
+  system("clear");
   store s;
   fout.open("database.txt",ios::app);
   s.add_item();
@@ -51,6 +52,7 @@ void store :: create_item(){
 void store :: displayALL()
 {
   store s;
+  system("clear");
   fstream file;
   file.open("database.txt");
   cout<<" -----------------------------------------------------------------------------------------------------------------------"<<endl;
@@ -64,7 +66,9 @@ void store :: displayALL()
             break;
     }
   }
-
+  cout<<"\n\nPress Enter to return to Main Menu\t\t";
+          cin.ignore();
+          cin.get();
    file.close();
    cout<<endl;
 }
@@ -72,6 +76,7 @@ void store :: displayALL()
 void store :: search_item(){
     fstream fin;
     store s;
+    system("clear");
     int code,flag = 0;
     fin.open("database.txt",ios::in);
     cout<<"Enter a Code"<<endl;
@@ -87,12 +92,16 @@ void store :: search_item(){
     if (flag == 0){
         cout<<"item not found";
     }
+    cout<<"\n\nPress Enter to return to Main Menu\t\t";
+        cin.ignore();
+        cin.get();
     fin.close();
 }
 
 void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar ekda....................
     fstream file;
     store s;
+    system("clear");
     int code , flag = 0 , temp = 0;
     long int pos;
     file.open("database.txt",ios::in);
@@ -117,10 +126,14 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
         cout<<"New record Created"<<endl;
         file.close();
     }
+    cout<<"\n\nPress Enter to return to Main Menu\t\t";
+        cin.ignore();
+        cin.get();
 
 }
 void store :: delete_item(){
     fstream file;
+    system("clear");
     store s;
     int flag=0;
     fstream file1;
@@ -147,6 +160,9 @@ void store :: delete_item(){
 	}
 	else
 		cout<<"\n\n\tRecord Deleted ..";
+        cout<<"\n\nPress Enter to return to Main Menu\t\t";
+        cin.ignore();
+        cin.get();
 
     remove("database.txt");
     rename("tempdel.txt","database.txt");
