@@ -4,6 +4,8 @@
 #include<iomanip>
 #include<cstdlib>
 #include<unistd.h>
+#include<ctime>               //for adding date and time
+#include<cmath>
 
 using namespace std;
 
@@ -38,6 +40,8 @@ void displayALL();
 void search_item();
 void modify();
 void delete_item();
+//void time();
+void invoice();
 };
 
 void store :: create_item(){
@@ -177,13 +181,30 @@ void store :: delete_item(){
 
 }
 
+
+void store::invoice()
+{
+//  cout<<"-------------------------------------------------------------------------"<<endl;
+  cout<<" _______________________________________________________________________"<<endl;
+  cout<<"|                               INVOICE                                 |"<<endl;
+  cout<<"|-----------------------------------------------------------------------|"<<endl;
+//cout<<" _______________________________________________________________________"<<endl;
+  time_t t = time(NULL);
+  tm* tPtr = localtime(&t);
+  cout << "|        Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900;
+  cout << "                    \tTime: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) <<"\t        |"<< endl;
+  cout<<"|                                                                       |"<<endl;
+  cout<<"|                                                                       |"<<endl;
+
+}
+
 int main(){
 store i;
 int ch;
 do {
     //system("clear");
  cout<<"Enter your choice"<<endl;
- cout<<"1. Add item.\n2.Display All Records\n 3.Search item \n 4. modify item \n 5.delete item\n 6.Display item";
+ cout<<"1. Add Item.\n2. Display All Records\n 3. Search Item \n 4. Modify Item \n 5. Delete Item\n 6. Display Item";
  cin>>ch;
  switch(ch){
     case 1:
@@ -200,6 +221,9 @@ do {
         break;
     case 5:
         i.delete_item();
+        break;
+    case 6:
+        i.invoice();
         break;
 
 }
