@@ -43,7 +43,7 @@ void delete_item();
 
 void store :: create_item(){
   fstream fout;
-  system("clear");
+  //system("clear");
   store s;
   fout.open("database.txt",ios::app);
   s.add_item();
@@ -54,7 +54,7 @@ void store :: create_item(){
 void store :: displayALL()
 {
   store s;
-  system("clear");
+  //system("clear");
   fstream file;
   file.open("database.txt");
   cout<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
@@ -78,7 +78,7 @@ void store :: displayALL()
 void store :: search_item(){
     fstream fin;
     store s;
-    system("clear");
+    //system("clear");
     int code,flag = 0;
     fin.open("database.txt",ios::in);
     cout<<"Enter a Code"<<endl;
@@ -100,13 +100,13 @@ void store :: search_item(){
     fin.close();
 }
 
-void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar ekda....................
+void  store :: modify() {
     fstream file;
     store s;
-    system("clear");
-    int code , flag = 0 , temp = 0;
-    long int pos;
-    file.open("database.txt",ios::in);
+    //system("clear");
+    int flag = 0 , temp = 0;
+    long int code;
+    file.open("database.txt");
     cout<<"Enter a code"<<endl;
     cin>>code;
     while(file.read((char*)&s,sizeof(s))){
@@ -114,22 +114,28 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
             flag = 1;
             break;
         }
-        else
+        else{
             temp++;
+        }
     }
 
     if(flag == 1){
-
-        pos = (temp) * sizeof(s);
+        long int pos = (temp)*sizeof(s);
         file.seekp(pos);
         cout<<"Enter a new record";
         s.add_item();
         file.write((char*)&s,sizeof(s));
         cout<<"New record Created"<<endl;
         file.close();
+
     }
+else{
+    cout<<"Item Not Found";
+}
+
     cout<<"\n\nPress Enter to return to Main Menu\t\t";
         cin.ignore();
+
         cin.get();
 
 }
@@ -178,8 +184,13 @@ int main(){
 store i;
 int ch;
 do {
+    //system("clear");
  cout<<"Enter your choice"<<endl;
+<<<<<<< HEAD
  cout<<"1. Add Item.\n2. Display All Records\n3. Search Item\n4. Modify Item \n5. Delete Item\n6. Display Item\n";
+=======
+ cout<<"1. Add item.\n2.Display All Records\n 3.Search item \n 4. modify item \n 5.delete item\n 6.Exit";
+>>>>>>> a1ea7b28727fbb3f4cc28a064f3f50e5ed0cab1d
  cin>>ch;
  switch(ch){
     case 1:
@@ -197,6 +208,8 @@ do {
     case 5:
         i.delete_item();
         break;
+    case 6:
+        return
 
 }
 } while(ch!= 0);
