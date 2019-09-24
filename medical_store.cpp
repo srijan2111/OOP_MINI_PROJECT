@@ -178,7 +178,7 @@ void store :: purchase(){
 fstream file;
 store s;
 int code,flag = 0,temp = 0,amt,bill;
-file.open("database.txt");
+file.open("database.txt
 cout<<"Enter code of item : ";
 cin>>code;
 while(file.read((char*)&s,sizeof(s))){
