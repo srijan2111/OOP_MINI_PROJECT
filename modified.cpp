@@ -394,6 +394,7 @@ void store :: shopkeeper_pass(){
         //     //s7.invoice();
         //     break;w asterisks
     //system("clear");
+    system("clear");
     do {
         string password=getpass("\bPlease enter the password: ",true); // Show asterisks
         if(password==correct_password){
@@ -453,6 +454,8 @@ void store :: customer_menu(){
 
 }
 
+
+
 void store :: Shopkeeper_menu(){
     system("clear");
     store s7;
@@ -463,6 +466,7 @@ void store :: Shopkeeper_menu(){
         cout<<"\t\t\t ----SHOPKEEPER MODE----"<<endl;
      cout<<"Enter your choice"<<endl;
      cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine \n 6. Enter Customer Mode\n 0. Exit\n";
+     cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine \n 6. Enter Customer Mode\n 0. Exit\n\t\t";
 
      cin>>ch;
      switch(ch){
@@ -495,4 +499,7 @@ int main(){
     store i;
     i.Login();
     return 0;
+store i;
+i.Login();
+return 0;
 }
