@@ -466,7 +466,6 @@ void store :: Shopkeeper_menu(){
         cout<<"\t\t\t ----SHOPKEEPER MODE----"<<endl;
      cout<<"Enter your choice"<<endl;
      cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine \n 6. Enter Customer Mode\n 0. Exit\n";
-     cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine \n 6. Enter Customer Mode\n 0. Exit\n\t\t";
 
      cin>>ch;
      switch(ch){
