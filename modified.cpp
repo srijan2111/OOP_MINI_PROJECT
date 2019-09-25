@@ -2,8 +2,12 @@
 #include<fstream>
 #include<string.h>
 #include<iomanip>
+#include<stdio.h>
+#include<termios.h>
 #include<cstdlib>
 #include<unistd.h>
+#include<ctime>               //for adding date and time
+#include<cmath>
 
 using namespace std;
 
@@ -38,6 +42,12 @@ void displayALL();
 void search_item();
 void modify();
 void delete_item();
+//void time();
+void invoice();
+void shopkeeper_pass();
+void Shopkeeper_menu();
+void customer_menu();
+void Login();
 };
 
 void store :: create_item(){
@@ -103,8 +113,7 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
     fstream file;
     store s;
     //system("clear");
-    int flag = 0 , temp = 0;
-    long int code;
+    int code , flag = 0 , temp = 0;
     //long int pos;
     file.open("database.txt");
     cout<<"Enter a code"<<endl;
@@ -113,11 +122,11 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
         if(code == s.code){
             flag = 1;
             //cout<<"found!";
-            break;
+            return;
         }
-        else{
+        else
             temp++;
-        }
+
     }
 
     if(flag == 1){
@@ -127,16 +136,16 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
         s.add_item();
         file.write((char*)&s,sizeof(s));
         cout<<"New record Created"<<endl;
-        file.close();
 
     }
-else{
-    cout<<"record nof";
-}
+    else{
+        cout<<"Item Not Found";
+    }
+
 
     cout<<"\n\nPress Enter to return to Main Menu\t\t";
         cin.ignore();
-
+        file.close();
         cin.get();
 
 }
@@ -181,33 +190,100 @@ void store :: delete_item(){
 
 }
 
-int main(){
-store i;
-int ch;
-do {
-    //system("clear");
- cout<<"Enter your choice"<<endl;
- cout<<"1. Add item.\n2.Display All Records\n 3.Search item \n 4. modify item \n 5.delete item\n 6.Display item";
- cin>>ch;
- switch(ch){
-    case 1:
-        i.create_item();
-        break;
-    case 2:
-        i.displayALL();
-        break;
-    case 3:
-        i.search_item();
-        break;
-    case 4:
-        i.modify();
-        break;
-    case 5:
-        i.delete_item();
-        break;
+
+void store::invoice()
+{
+//  cout<<"-------------------------------------------------------------------------"<<endl;
+  cout<<" _______________________________________________________________________"<<endl;
+  cout<<"|                               INVOICE                                 |"<<endl;
+  cout<<"|-----------------------------------------------------------------------|"<<endl;
+//cout<<" _______________________________________________________________________"<<endl;
+  time_t t = time(NULL);
+  tm* tPtr = localtime(&t);
+  cout << "|        Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900;
+  cout << "                    \tTime: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) <<"\t        |"<< endl;
+  cout<<"|                                                                       |"<<endl;
+  cout<<"|                                                                       |"<<endl;
 
 }
-} while(ch!= 0);
+void store:: Login(){
+    store i;
+    //system("clear");
+    int ch;
+    cout<<"\t\t\t\t ----LOGIN PAGE----"<<endl;
+    cout<<" 1. Shopkeeper Login\n 2. Customer Login\n 3. Exit"<<endl;
+    switch(ch){
+        case 1:
+            i.shopkeeper_pass();
+            break;
+        case 2:
+            i.customer_menu();
+            break;
+        case 3:
+            return;
+    }
+}
+void store :: shopkeeper_pass(){
+
+}
+void store :: customer_menu(){
+    store i;
+    int ch;
+    //system("clear");
+    cout<<"\t\t\t ----CUSTOMER MODE----"<<endl;
+    cout<<"Enter your choice"<<endl;
+    cout<<" 1. Purchase Medicine \n 2. Search Medicine\n 3.";
+    switch (ch) {
+        case 1:
+            /*Some COde*/
+            break;
+        case 2:
+            /*Some Code*/
+            break;
+        case 3:
+            /*Some Code*/
+            break;
+    }
+}
+void store :: Shopkeeper_menu(){
+    store i;
+    int ch;
+    do {
+        //system("clear");
+        cout<<"\t\t\t ----SHOPKEEPER MODE----";
+     cout<<"Enter your choice"<<endl;
+     cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine\n 6. Print Invoice\n 7. Enter Customer Mode\n 0. Exit";
+     cin>>ch;
+     switch(ch){
+        case 1:
+            i.create_item();
+            break;
+        case 2:
+            i.displayALL();
+            break;
+        case 3:
+            i.search_item();
+            break;
+        case 4:
+            i.modify();
+            break;
+        case 5:
+            i.delete_item();
+            break;
+        case 6:
+            i.invoice();
+            break;
+        case 7:
+            i.customer_menu();
+            break;
+
+    }
+    } while(ch!= 0);
+
+}
+int main(){
+store i;
+i.Login();
 
 return 0;
 
