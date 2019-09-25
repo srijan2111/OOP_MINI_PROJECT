@@ -28,6 +28,7 @@ public:
     cout<<"Date Of Expiry(DD/MM/YY) : "<<endl;
     cin>>DOE;
   }
+  //cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine \n 6. Enter Customer Mode\n 0. Exit\n\t\t";
   void show_item(){
       cout<<"\t\tCODE : "<<code<<endl;
       cout<<"\t\tNAME : "<<name<<endl;
@@ -110,13 +111,14 @@ void store :: search_item(){
     store s1;
     //system("clear");
     int ch,flag = 0,code;
+    int flag1=0;
     char name[20];
     fin.open("database.txt",ios::in);
-    cout<<"Search by : \n1.Item Code\n2.Item Name";
+    cout<<"Search by : \n1. Item Code\n2. Item Name\n\n";
     cin>>ch;
     switch (ch) {
       case 1:
-          cout<<"Enter a code of  item\n";
+          cout<<"Enter Item Code : \n";
           cin>>code;
           while(fin.read((char*)&s1,sizeof(s1))){
               if(code == s1.code){
@@ -124,25 +126,26 @@ void store :: search_item(){
                   s1.show_item();
               }
               }
-          if (flag == 0){
-              cout<<"item not found";}
+              if (flag == 0){
+              cout<<"Item Not Found.";}
           break;
       case 2:
-          cout<<"Enter a name of  item\n";
+          cout<<"Enter Name of Item : \n";
           cin>>name;
-          while(fin.read((char*)&s1,sizeof(s1))){
-              if(name == s1.name){
-                  flag = 1;
-                  cout<<"Heyyyyyyyyyyyyyyy";
-                  s1.show_item();
-              }
-              }
-          if (flag == 0){
-              cout<<"item not found";
+          while(fin.read((char*)&s1,sizeof(s1)))
+          {
+            if(name==s1.name)
+            {
+              flag1 = 1;
+              s1.show_item();
+              //break;
+            }
           }
-          break;
-    }
-
+          if (flag1 == 0){
+              cout<<"Item Not Found";
+          }
+      break;
+      }
 
     cout<<"\n\nPress Enter to return to Main Menu\t\t";
         cin.ignore();
@@ -500,5 +503,4 @@ int main(){
     i.Login();
     return 0;
 
-return 0;
 }
