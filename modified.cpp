@@ -2,6 +2,8 @@
 #include<fstream>
 #include<string.h>
 #include<iomanip>
+#include<stdio.h>
+#include<termios.h>
 #include<cstdlib>
 #include<unistd.h>
 #include<ctime>               //for adding date and time
@@ -42,6 +44,10 @@ void modify();
 void delete_item();
 //void time();
 void invoice();
+void shopkeeper_pass();
+void Shopkeeper_menu();
+void customer_menu();
+void Login();
 };
 
 void store :: create_item(){
@@ -132,6 +138,9 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
         cout<<"New record Created"<<endl;
 
     }
+    else{
+        cout<<"Item Not Found";
+    }
 
 
     cout<<"\n\nPress Enter to return to Main Menu\t\t";
@@ -197,37 +206,84 @@ void store::invoice()
   cout<<"|                                                                       |"<<endl;
 
 }
-
-int main(){
-store i;
-int ch;
-do {
+void store:: Login(){
+    store i;
     //system("clear");
- cout<<"Enter your choice"<<endl;
- cout<<"1. Add Item.\n2. Display All Records\n 3. Search Item \n 4. Modify Item \n 5. Delete Item\n 6. Display Item";
- cin>>ch;
- switch(ch){
-    case 1:
-        i.create_item();
-        break;
-    case 2:
-        i.displayALL();
-        break;
-    case 3:
-        i.search_item();
-        break;
-    case 4:
-        i.modify();
-        break;
-    case 5:
-        i.delete_item();
-        break;
-    case 6:
-        i.invoice();
-        break;
+    int ch;
+    cout<<"\t\t\t\t ----LOGIN PAGE----"<<endl;
+    cout<<" 1. Shopkeeper Login\n 2. Customer Login\n 3. Exit"<<endl;
+    switch(ch){
+        case 1:
+            i.shopkeeper_pass();
+            break;
+        case 2:
+            i.customer_menu();
+            break;
+        case 3:
+            return;
+    }
+}
+void store :: shopkeeper_pass(){
 
 }
-} while(ch!= 0);
+void store :: customer_menu(){
+    store i;
+    int ch;
+    //system("clear");
+    cout<<"\t\t\t ----CUSTOMER MODE----"<<endl;
+    cout<<"Enter your choice"<<endl;
+    cout<<" 1. Purchase Medicine \n 2. Search Medicine\n 3.";
+    switch (ch) {
+        case 1:
+            /*Some COde*/
+            break;
+        case 2:
+            /*Some Code*/
+            break;
+        case 3:
+            /*Some Code*/
+            break;
+    }
+}
+void store :: Shopkeeper_menu(){
+    store i;
+    int ch;
+    do {
+        //system("clear");
+        cout<<"\t\t\t ----SHOPKEEPER MODE----";
+     cout<<"Enter your choice"<<endl;
+     cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine\n 6. Print Invoice\n 7. Enter Customer Mode\n 0. Exit";
+     cin>>ch;
+     switch(ch){
+        case 1:
+            i.create_item();
+            break;
+        case 2:
+            i.displayALL();
+            break;
+        case 3:
+            i.search_item();
+            break;
+        case 4:
+            i.modify();
+            break;
+        case 5:
+            i.delete_item();
+            break;
+        case 6:
+            i.invoice();
+            break;
+        case 7:
+            i.customer_menu();
+            break;
+
+    }
+    } while(ch!= 0);
+
+}
+int main(){
+store i;
+i.Login();
 
 return 0;
 
