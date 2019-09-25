@@ -28,6 +28,7 @@ public:
     cout<<"Date Of Expiry(DD/MM/YY) : "<<endl;
     cin>>DOE;
   }
+  //cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine \n 6. Enter Customer Mode\n 0. Exit\n\t\t";
   void show_item(){
       cout<<"\t\tCODE : "<<code<<endl;
       cout<<"\t\tNAME : "<<name<<endl;
@@ -109,19 +110,43 @@ void store :: search_item(){
     fstream fin;
     store s1;
     //system("clear");
-    int code,flag = 0;
+    int ch,flag = 0,code;
+    int flag1=0;
+    char name[20];
     fin.open("database.txt",ios::in);
-    cout<<"Enter a Code: ";
-    cin>>code;
-    while(fin.read((char*)&s1,sizeof(s1))){
-        if(code == s1.code){
-            flag = 1;
-            s1.show_item();
-        }
-        }
-    if (flag == 0){
-        cout<<"item not found";
-    }
+    cout<<"Search by : \n1. Item Code\n2. Item Name\n\n";
+    cin>>ch;
+    switch (ch) {
+      case 1:
+          cout<<"Enter Item Code : \n";
+          cin>>code;
+          while(fin.read((char*)&s1,sizeof(s1))){
+              if(code == s1.code){
+                  flag = 1;
+                  s1.show_item();
+              }
+              }
+          if (flag == 0){
+              cout<<"Item Not Found.";}
+          break;
+      case 2:
+          cout<<"Enter Name of Item : \n";
+          cin>>name;
+          while(fin.read((char*)&s1,sizeof(s1)))
+          {
+            if(name==s1.name)
+            {
+              flag1 = 1;
+              s1.show_item();
+              break;
+            }
+          }
+          if (flag1 == 0){
+              cout<<"Item Not Found";
+          }
+        //  break;
+      }
+
     cout<<"\n\nPress Enter to return to Main Menu\t\t";
         cin.ignore();
         cin.get();
@@ -372,6 +397,7 @@ void store :: shopkeeper_pass(){
         //     //s7.invoice();
         //     break;w asterisks
     //system("clear");
+    system("clear");
     do {
         string password=getpass("\bPlease enter the password: ",true); // Show asterisks
         if(password==correct_password){
@@ -431,6 +457,8 @@ void store :: customer_menu(){
 
 }
 
+
+
 void store :: Shopkeeper_menu(){
     system("clear");
     store s7;
@@ -473,4 +501,5 @@ int main(){
     store i;
     i.Login();
     return 0;
+
 }
