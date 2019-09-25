@@ -17,16 +17,17 @@ protected:
   char name[20],DOE[10];
 public:
   void add_item(){
-    cout<<"CODE : "<<endl;
+    cout<<"CODE : ";
     cin>>code;
-    cout<<"NAME : "<<endl;
+    cout<<"NAME : ";
     cin>>name;
-    cout<<"COST : "<<endl;
+    cout<<"COST : ";
     cin>>cost;
-    cout<<"QUANTITY : "<<endl;
+    cout<<"QUANTITY : ";
     cin>>quantity;
     cout<<"Date Of Expiry(DD/MM/YY) : "<<endl;
     cin>>DOE;
+    cout<<endl;
   }
   //cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine \n 6. Enter Customer Mode\n 0. Exit\n\t\t";
   void show_item(){
@@ -60,8 +61,9 @@ void store :: create_item(){
     {
         s.add_item();
         fout.write((char*)&s,sizeof(s));
-        cout<<"Want to add more items\n(press y)";
+        cout<<"Want to add more items\n(press y)"<<endl;
         cin>>ch;
+        cout<<endl<<endl;
     }
     if(ch == 'y' || ch == 'Y'){
         goto add;
@@ -114,6 +116,7 @@ void store :: search_item(){
     int flag1=0;
     char name[20];
     fin.open("database.txt",ios::in);
+    cout<<endl<<endl;
     cout<<"Search by : \n1. Item Code\n2. Item Name\n\n";
     cin>>ch;
     switch (ch) {
@@ -130,8 +133,10 @@ void store :: search_item(){
               cout<<"Item Not Found.";}
           break;
       case 2:
+          cout<<endl;
           cout<<"Enter Name of Item : \n";
           cin>>name;
+          cout<<endl;
           while(fin.read((char*)&s1,sizeof(s1)))
           {
             if(strcmp(name,s1.name)==0)
@@ -161,7 +166,8 @@ void  store :: modify() {
     int code ,ch, flag = 0 , temp = 0;
     //long int pos;
     file.open("database.txt");
-    cout<<"Enter a code"<<endl;
+    cout<<endl;
+    cout<<"Enter Code: ";
     cin>>code;
     while(file.read((char*)&s2,sizeof(s2))){
         if(code == s2.code){
@@ -176,35 +182,36 @@ void  store :: modify() {
         file.seekp(pos);
         cout<<"What do you want to update\n";
         //s2.add_item();
-        cout<<"\n1.Name\n2.Cost\n3.Quantity.\n4.Expiry date\n5.complete item\n";
+        cout<<"\n1. Name\n2. Cost\n3. Quantity.\n4. Expiry date\n5. Complete Record\n";
         cin>>ch;
+        cout<<endl<<endl;
         switch (ch)
         {
         case 1:
-            cout<<"Enter a new name\n";
+            cout<<"Enter Name\n";
             cin>>s2.name;
             break;
         case 2:
-            cout<<"Enter a new cost\n";
+            cout<<"Enter Cost\n";
             cin>>s2.cost;
             break;
         case 3:
-            cout<<"Enter a new quantity\n";
+            cout<<"Enter Quantity\n";
             cin>>s2.quantity;
             break;
         case 4:
-            cout<<"Enter a new Date of expiry\n";
+            cout<<"Enter Expiry Date (dd/mm/yyyy)\n";
             cin>>s2.DOE;
             break;
         case 5:
-            cout<<"Enter a new record\n";
+            cout<<"Enter New Record: \n";
             s2.add_item();
             break;
         default:
             break;
         }
         file.write((char*)&s2,sizeof(s2));
-        cout<<"New record Created"<<endl;
+        cout<<"Record Modified..."<<endl;
     }
     else{
         cout<<"Item Not Found";
@@ -466,7 +473,7 @@ void store :: Shopkeeper_menu(){
     int ch;
     do {
         //system("clear");
-        cout<<endl<<endl;
+        //cout<<endl<<endl;
         cout<<"\t\t\t ----SHOPKEEPER MODE----"<<endl;
      cout<<"Enter your choice"<<endl;
      cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine \n 6. Enter Customer Mode\n 0. Exit\n";
@@ -476,6 +483,7 @@ void store :: Shopkeeper_menu(){
         case 1:
             system("clear");
             s7.create_item();
+            system("clear");
             break;
         case 2:
             system("clear");
