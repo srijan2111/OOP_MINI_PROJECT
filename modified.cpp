@@ -238,7 +238,10 @@ void store :: purchase()
 {
 fstream file;
 store s4;
+int sr_no=1;
 int code,flag = 0,temp = 0,amt,bill;
+string name;
+string date;
 file.open("database.txt");
 fstream file1;
 file1.open("temp.txt");
@@ -255,6 +258,7 @@ if (flag == 1){
   long int pos = (temp)*sizeof(s4);
   file.seekp(pos);
   file.read((char*)&s4,sizeof(s4));
+  name=s4.name;
   cout<<"Enter number of item"<<endl;
   cin>>amt;
   if((s4.quantity - amt) >= 0){
@@ -262,7 +266,27 @@ if (flag == 1){
   cout<<bill;
   file.seekp(pos);
   s4.quantity = s4.quantity - amt;
+  date=s4.DOE;
   file.write((char*)&s4,sizeof(s4));
+  cout<<endl<<endl<<endl;
+  cout<<" __________________________________________________________________________________________________ "<<endl;
+  cout<<"|                                             INVOICE                                              |"<<endl;
+  cout<<"|--------------------------------------------------------------------------------------------------|"<<endl;
+  time_t t = time(NULL);
+  tm* tPtr = localtime(&t);
+  cout <<"|                 Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900;
+  cout <<"                                \tTime: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) <<"\t           |"<< endl;
+  cout<<"|                                                                                                  |"<<endl;
+  cout<<"|                                                                                                  |"<<endl;
+  cout<<"|  ---------------------------------------------------------------------------------------------   |"<<endl;
+  cout<<"|  | Sr.No |  Item Code   |     Item NAME    |   Quantity   |   Date of Expiry   |    Price    |   |"<<endl;
+  cout<<"|  ---------------------------------------------------------------------------------------------   |"<<endl;
+  cout<<"|  |   "<<sr_no<<"   |    "<<setw(5)<<code<<setw(5)<<"     |  "<<setw(9)<<s4.name<<setw(9)<<" | "<<setw(7)<<amt<<"      |     "<<setw(8)<<s4.DOE<<"      |    "<<setw(5)<<bill<<"    |   |"<<endl;
+  cout<<"|  ---------------------------------------------------------------------------------------------   |"<<endl;
+  cout<<"|                                                                                                  |"<<endl;
+  cout<<"|                                                                                                  |"<<endl;
+  cout<<"|__________________________________________________________________________________________________|"<<endl;
+  cout<<endl<<endl;
   file.close();
 }
   else
@@ -337,6 +361,13 @@ void store::invoice()
   cout<<"|  | Sr.No |  Item Code  |     Item NAME     |   Date of   |   Price   |   |"<<endl;
   cout<<"|  ---------------------------------------------------------------------   |"<<endl;
 }
+// void store::invoice()
+// {
+//   store s6;
+//   fstream file1;
+//   file1.open("invoice.txt");
+//
+//
 
 
 void store:: Login(){
