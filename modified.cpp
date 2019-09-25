@@ -42,7 +42,6 @@ void displayALL();
 void search_item();
 void modify();
 void delete_item();
-void invoice();
 void shopkeeper_pass();
 void Shopkeeper_menu();
 void customer_menu();
@@ -112,7 +111,7 @@ void store :: search_item(){
     //system("clear");
     int code,flag = 0;
     fin.open("database.txt",ios::in);
-    cout<<"Enter a Code"<<endl;
+    cout<<"Enter a Code: ";
     cin>>code;
     while(fin.read((char*)&s1,sizeof(s1))){
         if(code == s1.code){
@@ -243,8 +242,7 @@ int code,flag = 0,temp = 0,amt,bill;
 string name;
 string date;
 file.open("database.txt");
-fstream file1;
-file1.open("temp.txt");
+cout<<endl<<endl;
 cout<<"Enter code of item : ";
 cin>>code;
 while(file.read((char*)&s4,sizeof(s4))){
@@ -288,15 +286,15 @@ if (flag == 1){
   cout<<"|__________________________________________________________________________________________________|"<<endl;
   cout<<endl<<endl;
   file.close();
-}
+  }
+
   else
-  cout<<"item not available";
-
-
-
+    cout<<"item not available";
 }
 else
-  cout<<"File not found";
+  cout<<endl;
+  cout<<"Code not found"<<endl;
+  cout<<endl;
 
 
 }
@@ -344,30 +342,7 @@ string getpass(const char *prompt, bool show_asterisk=true)             //This i
   return password;
 }
 
-void store::invoice()
-{
-  cout<<" __________________________________________________________________________ "<<endl;
-  cout<<"|                                 INVOICE                                  |"<<endl;
-  cout<<"|--------------------------------------------------------------------------|"<<endl;
-  time_t t = time(NULL);
-  tm* tPtr = localtime(&t);
-  cout << "|        Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900;
-  cout << "                    \tTime: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) <<"\t           |"<< endl;
-  cout<<"|                                                                          |"<<endl;
-  cout<<"|                                                                          |"<<endl;
-  cout<<"|  ---------------------------------------------------------------------   |"<<endl;
-  cout<<"|  | Sr.No |  Item Code  |     Item NAME     |   Date of   |   Price   |   |"<<endl;
-  cout<<"|  ---------------------------------------------------------------------   |"<<endl;
-  cout<<"|  | Sr.No |  Item Code  |     Item NAME     |   Date of   |   Price   |   |"<<endl;
-  cout<<"|  ---------------------------------------------------------------------   |"<<endl;
-}
-// void store::invoice()
-// {
-//   store s6;
-//   fstream file1;
-//   file1.open("invoice.txt");
-//
-//
+
 
 
 void store:: Login(){
@@ -392,7 +367,10 @@ void store:: Login(){
 
 void store :: shopkeeper_pass(){
     const char *correct_password="null";
-    string password=getpass("",true); // Show asterisks
+    string password=getpass("",true); // Sho        // case 6:
+        //     system("clear");
+        //     //s7.invoice();
+        //     break;w asterisks
     system("clear");
     do {
         string password=getpass("\bPlease enter the password: ",true); // Show asterisks
@@ -429,23 +407,28 @@ void store :: customer_menu(){
     store s8;
     int ch;
     system("clear");
-    while(1){
+      while(1){
         cout<<"\t\t\t ----CUSTOMER MODE----"<<endl;
-        cout<<"Enter your choice"<<endl;
-        cout<<" 1. Purchase Medicine \n 2. Search Medicine\n 3.Shopkeeper mode";
+        cout<<"Enter your choice"<<endl<<endl;
+        cout<<" 1. Display All Records \n 2. Purchase Medicine \n 3. Search Medicine \n 4. Shopkeeper mode \n\n";
         cin >> ch;
         switch (ch) {
             case 1:
-                s8.purchase();
+                system("clear");
+                s8.displayALL();
                 break;
             case 2:
-                s8.search_item();
+                s8.purchase();
                 break;
             case 3:
+                s8.search_item();
+                break;
+            case 4:
                 s8.shopkeeper_pass();
                 break;
-            }
-    }
+        }
+      }
+
 }
 
 
@@ -455,9 +438,10 @@ void store :: Shopkeeper_menu(){
     int ch;
     do {
         //system("clear");
+        cout<<endl<<endl;
         cout<<"\t\t\t ----SHOPKEEPER MODE----"<<endl;
      cout<<"Enter your choice"<<endl;
-     cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine\n 6. Print Invoice\n 7. Enter Customer Mode\n 0. Exit\n\t\t";
+     cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine \n 6. Enter Customer Mode\n 0. Exit\n\t\t";
 
      cin>>ch;
      switch(ch){
@@ -480,13 +464,8 @@ void store :: Shopkeeper_menu(){
             break;
         case 6:
             system("clear");
-            s7.invoice();
-            break;
-        case 7:
-
-            system("clear");
             s7.customer_menu();
-            return;
+            return;                               
     }
     } while(ch!= 0);
 }
