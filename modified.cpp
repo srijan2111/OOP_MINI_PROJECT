@@ -151,10 +151,11 @@ void  store :: modify() {
         long int pos = (temp)*sizeof(s2);
         file.seekp(pos);
         cout<<endl;
-        cout<<"What do you want to update\n";
+        cout<<"What do you want to Update?\n";
         //s2.add_item();
         cout<<"\n1. Name\n2. Cost\n3. Quantity.\n4. Expiry Date\n5. Replace Item\n";
         cin>>ch;
+        cout<<"Enter the updated details : "<<endl;
         switch (ch)
         {
         case 1:
