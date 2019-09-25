@@ -8,7 +8,6 @@
 #include<unistd.h>
 #include<ctime>               //for adding date and time
 #include<cmath>
-
 using namespace std;
 
 class store{
@@ -48,6 +47,7 @@ void shopkeeper_pass();
 void Shopkeeper_menu();
 void customer_menu();
 void Login();
+void purchase();
 };
 
 void store :: create_item(){
@@ -58,25 +58,29 @@ void store :: create_item(){
   s.add_item();
   fout.write((char*)&s,sizeof(s));
   fout.close();
-
 }
+
+
 void store :: displayALL()
 {
   store s;
   //system("clear");
   fstream file;
   file.open("database.txt");
-  cout<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
+  cout<<" -----------------------------------------------------------------------------------------------------------------------"<<endl;
+  //cout<<"|_______________________________________________________________________________________________________________________|"<<endl;
   cout<<"|"<<setw(15)<<"Item Code"<<"\t|"<<setw(15)<<"Item Name"<<"\t|"<<setw(15)<<"Quantity"<<"\t|"<<setw(15)<<"Cost"<<"\t|"<<setw(15)<<"Expiry Date"<<"\t|"<<endl;
-  cout<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
+  //cout<<"|-----------------------------------------------------------------------------------------------------------------------|"<<endl;
   while(file.read((char*)&s,sizeof(s))){
     while (!file.eof()) {
-            //cout<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
+            cout<<"|-----------------------------------------------------------------------------------------------------------------------|"<<endl;
             cout<<"|"<<setw(15)<<s.code<<"\t|"<<setw(15)<<s.name<<"\t|"<<setw(15)<<s.quantity<<"\t|"<<setw(15)<<s.cost<<"\t|"<<setw(15)<<s.DOE<<"\t|"<<endl;
-            cout<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
+            //cout<<"|-----------------------------------------------------------------------------------------------------------------------|"<<endl;
             break;
     }
   }
+  cout<<" -----------------------------------------------------------------------------------------------------------------------"<<endl;
+     // cout<<"|_______________________________________________________________________________________________________________________|"<<endl;
   cout<<"\n\nPress Enter to return to Main Menu\t\t";
           cin.ignore();
           cin.get();
@@ -91,6 +95,7 @@ void wait ( int seconds )                   // for creating time wait function
 	while (clock() < endwait) {}
 }
 
+
 void store :: search_item(){
     fstream fin;
     store s1;
@@ -104,9 +109,7 @@ void store :: search_item(){
             flag = 1;
             s1.show_item();
         }
-
         }
-
     if (flag == 0){
         cout<<"item not found";
     }
@@ -115,6 +118,7 @@ void store :: search_item(){
         cin.get();
     fin.close();
 }
+
 
 void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar ekda....................
     fstream file;
@@ -133,9 +137,7 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
         }
         else
             temp++;
-
     }
-
     if(flag == 1){
         long int pos = (temp)*sizeof(s2);
         file.seekp(pos);
@@ -143,19 +145,18 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
         s2.add_item();
         file.write((char*)&s2,sizeof(s2));
         cout<<"New record Created"<<endl;
-
     }
     else{
         cout<<"Item Not Found";
     }
-
-
     cout<<"\n\nPress Enter to return to Main Menu\t\t";
         cin.ignore();
         file.close();
         cin.get();
 
 }
+
+
 void store :: delete_item(){
     fstream file;
     //system("clear");
@@ -194,7 +195,6 @@ void store :: delete_item(){
 
     remove("database.txt");
     rename("tempdel.txt","database.txt");
-
 }
 
 
@@ -240,48 +240,27 @@ else
 
 }
 
-//
-// void store::invoice()
-// {
-// //  cout<<"-------------------------------------------------------------------------"<<endl;
-//   cout<<" _______________________________________________________________________"<<endl;
-//   cout<<"|                               INVOICE                                 |"<<endl;
-//   cout<<"|-----------------------------------------------------------------------|"<<endl;
-// //cout<<" _______________________________________________________________________"<<endl;
-//   time_t t = time(NULL);
-//   tm* tPtr = localtime(&t);
-//   cout << "|        Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900;
-//   cout << "                    \tTime: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) <<"\t        |"<< endl;
-//   cout<<"|                                                                       |"<<endl;
-//   cout<<"|                                                                       |"<<endl;
-//
-// }
 
 int getch() {                                       //getting character
     int ch;
     struct termios t_old, t_new;
-
     tcgetattr(STDIN_FILENO, &t_old);
     t_new = t_old;
     t_new.c_lflag &= ~(ICANON | ECHO);
     tcsetattr(STDIN_FILENO, TCSANOW, &t_new);
-
     ch = getchar();
-
     tcsetattr(STDIN_FILENO, TCSANOW, &t_old);
     return ch;
 }
+
 
 string getpass(const char *prompt, bool show_asterisk=true)             //This is to get the password and convert it into asterisks(*)
 {
   const char BACKSPACE=127;
   const char RETURN=10;
-
   string password;
   unsigned char ch=0;
-
   cout <<prompt<<endl;
-
   while((ch=getch())!=RETURN)
     {
        if(ch==BACKSPACE)
@@ -309,8 +288,6 @@ void store::invoice()
   cout<<" __________________________________________________________________________ "<<endl;
   cout<<"|                                 INVOICE                                  |"<<endl;
   cout<<"|--------------------------------------------------------------------------|"<<endl;
-
-
   time_t t = time(NULL);
   tm* tPtr = localtime(&t);
   cout << "|        Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900;
@@ -323,23 +300,28 @@ void store::invoice()
   cout<<"|  | Sr.No |  Item Code  |     Item NAME     |   Date of   |   Price   |   |"<<endl;
   cout<<"|  ---------------------------------------------------------------------   |"<<endl;
 }
+
+
 void store:: Login(){
-    store i;
+    store s5;
     //system("clear");
     int ch;
     cout<<"\t\t\t\t ----LOGIN PAGE----"<<endl;
     cout<<" 1. Shopkeeper Login\n 2. Customer Login\n 3. Exit"<<endl;
+    cin >> ch;
     switch(ch){
         case 1:
-            i.shopkeeper_pass();
+            s5.shopkeeper_pass();
             break;
         case 2:
-            i.customer_menu();
+            s5.customer_menu();
             break;
         case 3:
             return;
     }
 }
+
+
 void store :: shopkeeper_pass(){
     const char *correct_password="null";
     string password=getpass("",true); // Show asterisks
@@ -367,49 +349,56 @@ void store :: shopkeeper_pass(){
         }
         else
             cout <<"Incorrect password. Try again\n"<<endl;
-
 } while(password!=correct_password);
 store s6;
 s6.Shopkeeper_menu();
+
 }
+
+
+
 void store :: customer_menu(){
-    store i;
+    store s8;
     int ch;
     system("clear");
-    cout<<"\t\t\t ----CUSTOMER MODE----"<<endl;
-    cout<<"Enter your choice"<<endl;
-    cout<<" 1. Purchase Medicine \n 2. Search Medicine\n 3.";
-    cin >> ch;
-    //system("clear");
-    cout<<"\t\t\t ----CUSTOMER MODE----"<<endl;
-    cout<<"Enter your choice"<<endl;
-    cout<<" 1. Purchase Medicine \n 2. Search Medicine\n 3.";
-    switch (ch) {
-        case 1:
-            /*Some COde*/
-            break;
-        case 2:
-            /*Some Code*/
-            break;
-        case 3:
-            /*Some Code*/
-            break;
+    while(1){
+        cout<<"\t\t\t ----CUSTOMER MODE----"<<endl;
+        cout<<"Enter your choice"<<endl;
+        cout<<" 1. Purchase Medicine \n 2. Search Medicine\n 3.Shopkeeper mode";
+        cin >> ch;
+        switch (ch) {
+            case 1:
+                s8.purchase();
+                break;
+            case 2:
+                s8.search_item();
+                break;
+            case 3:
+                s8.shopkeeper_pass();
+                break;
+            }
     }
 }
+
+
+
 void store :: Shopkeeper_menu(){
     store s7;
     int ch;
     do {
         //system("clear");
-        cout<<"\t\t\t ----SHOPKEEPER MODE----";
+        cout<<"\t\t\t ----SHOPKEEPER MODE----"<<endl;
      cout<<"Enter your choice"<<endl;
-     cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine\n 6. Print Invoice\n 7. Enter Customer Mode\n 0. Exit";
+     cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine\n 6. Print Invoice\n 7. Enter Customer Mode\n 0. Exit\n\t\t";
+
      cin>>ch;
      switch(ch){
         case 1:
+            system("clear");
             s7.create_item();
             break;
         case 2:
+            system("clear");
             s7.displayALL();
             break;
         case 3:
@@ -422,20 +411,19 @@ void store :: Shopkeeper_menu(){
             s7.delete_item();
             break;
         case 6:
+            system("clear")
             s7.invoice();
             break;
         case 7:
-            s7.customer_menu();
-            break;
 
+            system("clear");
+            s7.customer_menu();
+            return;
     }
     } while(ch!= 0);
-
 }
 int main(){
 store i;
 i.Login();
-
 return 0;
-
 }
