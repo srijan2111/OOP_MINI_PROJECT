@@ -136,7 +136,8 @@ void  store :: modify() {
     int code ,ch, flag = 0 , temp = 0;
     //long int pos;
     file.open("database.txt");
-    cout<<"Enter a code"<<endl;
+    cout<<endl;
+    cout<<"Enter a code: ";
     cin>>code;
     while(file.read((char*)&s2,sizeof(s2))){
         if(code == s2.code){
@@ -149,30 +150,31 @@ void  store :: modify() {
     if(flag == 1){
         long int pos = (temp)*sizeof(s2);
         file.seekp(pos);
+        cout<<endl;
         cout<<"What do you want to update\n";
         //s2.add_item();
-        cout<<"\n1.Name\n2.Cost\n3.Quantity.\n4.Expiry date\n5.complete item\n";
+        cout<<"\n1. Name\n2. Cost\n3. Quantity.\n4. Expiry Date\n5. Replace Item\n";
         cin>>ch;
         switch (ch)
         {
         case 1:
-            cout<<"Enter a new name\n";
+            cout<<"Enter Name :\n";
             cin>>s2.name;
             break;
         case 2:
-            cout<<"Enter a new cost\n";
+            cout<<"Enter Cost :\n";
             cin>>s2.cost;
             break;
         case 3:
-            cout<<"Enter a new quantity\n";
+            cout<<"Enter Quantity :\n";
             cin>>s2.quantity;
             break;
         case 4:
-            cout<<"Enter a new Date of expiry\n";
+            cout<<"Enter Expiry Date : \n";
             cin>>s2.DOE;
             break;
         case 5:
-            cout<<"Enter a new record\n";
+            cout<<"Enter New Record\n";
             s2.add_item();
             break;
         default:
@@ -273,8 +275,8 @@ if (flag == 1){
   cout<<"|--------------------------------------------------------------------------------------------------|"<<endl;
   time_t t = time(NULL);
   tm* tPtr = localtime(&t);
-  cout <<"|                 Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900;
-  cout <<"                                \tTime: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) <<"\t           |"<< endl;
+  cout<<"|                 Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900;
+  cout<<"                                \tTime: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) <<"\t           |"<< endl;
   cout<<"|                                                                                                  |"<<endl;
   cout<<"|                                                                                                  |"<<endl;
   cout<<"|  ---------------------------------------------------------------------------------------------   |"<<endl;
