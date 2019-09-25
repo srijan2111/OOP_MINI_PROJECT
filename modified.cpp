@@ -464,12 +464,8 @@ void store :: Shopkeeper_menu(){
             break;
         case 6:
             system("clear");
-            s7.invoice();
-            break;
-        case 7:
-            system("clear");
             s7.customer_menu();
-            return;                               //change to break, there is loop hole
+            return;                               
     }
     } while(ch!= 0);
 }
