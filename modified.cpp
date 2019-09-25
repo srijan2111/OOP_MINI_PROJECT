@@ -425,7 +425,7 @@ void store :: Shopkeeper_menu(){
             s7.delete_item();
             break;
         case 6:
-            system("clear")
+            system("clear");
             s7.invoice();
             break;
         case 7:
