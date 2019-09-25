@@ -143,7 +143,6 @@ void store :: search_item(){
           }
           if (flag1 == 0){
               cout<<"Item Not Found";
-              break;
           }
         //  break;
       }
