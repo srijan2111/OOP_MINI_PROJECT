@@ -238,7 +238,8 @@ void store :: purchase()
 fstream file;
 store s4;
 int sr_no=1;
-int code,flag = 0,temp = 0,amt,bill;
+int code,flag = 0,temp = 0,amt;
+float bill;
 string name;
 string date;
 file.open("database.txt");
@@ -260,8 +261,8 @@ if (flag == 1){
   cout<<"Enter number of item"<<endl;
   cin>>amt;
   if((s4.quantity - amt) >= 0){
-  bill = amt * s4.cost;
-  cout<<bill;
+  bill = amt * s4.cost  + (0.05 * amt * s4.cost);
+  cout<<round(bill)<<endl;
   file.seekp(pos);
   s4.quantity = s4.quantity - amt;
   date=s4.DOE;
@@ -279,7 +280,7 @@ if (flag == 1){
   cout<<"|  ---------------------------------------------------------------------------------------------   |"<<endl;
   cout<<"|  | Sr.No |  Item Code   |     Item NAME    |   Quantity   |   Date of Expiry   |    Price    |   |"<<endl;
   cout<<"|  ---------------------------------------------------------------------------------------------   |"<<endl;
-  cout<<"|  |   "<<sr_no<<"   |    "<<setw(5)<<code<<setw(5)<<"     |  "<<setw(9)<<s4.name<<setw(9)<<" | "<<setw(7)<<amt<<"      |     "<<setw(8)<<s4.DOE<<"      |    "<<setw(5)<<bill<<"    |   |"<<endl;
+  cout<<"|  |   "<<sr_no<<"   |    "<<setw(5)<<code<<setw(5)<<"     |  "<<setw(9)<<s4.name<<setw(9)<<" | "<<setw(7)<<amt<<"      |     "<<setw(8)<<s4.DOE<<"      |    "<<setw(5)<<round(bill)<<"    |   |"<<endl;
   cout<<"|  ---------------------------------------------------------------------------------------------   |"<<endl;
   cout<<"|                                                                                                  |"<<endl;
   cout<<"|                                                                                                  |"<<endl;
@@ -465,7 +466,7 @@ void store :: Shopkeeper_menu(){
         case 6:
             system("clear");
             s7.customer_menu();
-            return;                               
+            return;
     }
     } while(ch!= 0);
 }
