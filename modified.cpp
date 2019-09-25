@@ -401,7 +401,8 @@ void store :: shopkeeper_pass(){
     do {
         string password=getpass("\bPlease enter the password: ",true); // Show asterisks
         if(password==correct_password){
-            cout <<"Correct password\nLogging in\n";
+            cout <<"Correct password";
+            cout<<"\nLogging in\n";
             for( int i = 0; i < 1; i++ )
             {
         		printf(".\n");
