@@ -109,19 +109,41 @@ void store :: search_item(){
     fstream fin;
     store s1;
     //system("clear");
-    int code,flag = 0;
+    int ch,flag = 0,code;
+    char name[20];
     fin.open("database.txt",ios::in);
-    cout<<"Enter a Code: ";
-    cin>>code;
-    while(fin.read((char*)&s1,sizeof(s1))){
-        if(code == s1.code){
-            flag = 1;
-            s1.show_item();
-        }
-        }
-    if (flag == 0){
-        cout<<"item not found";
+    cout<<"Search by : \n1.Item Code\n2.Item Name";
+    cin>>ch;
+    switch (ch) {
+      case 1:
+          cout<<"Enter a code of  item\n";
+          cin>>code;
+          while(fin.read((char*)&s1,sizeof(s1))){
+              if(code == s1.code){
+                  flag = 1;
+                  s1.show_item();
+              }
+              }
+          if (flag == 0){
+              cout<<"item not found";}
+          break;
+      case 2:
+          cout<<"Enter a name of  item\n";
+          cin>>name;
+          cout<<name;
+          while(fin.read((char*)&s1,sizeof(s1))){
+              if(name == s1.name){
+                  flag = 1;
+                  s1.show_item();
+              }
+              }
+          if (flag == 0){
+              cout<<"item not found";
+          }
+          break;
     }
+
+
     cout<<"\n\nPress Enter to return to Main Menu\t\t";
         cin.ignore();
         cin.get();
@@ -465,7 +487,7 @@ void store :: Shopkeeper_menu(){
         case 6:
             system("clear");
             s7.customer_menu();
-            return;                               
+            return;
     }
     } while(ch!= 0);
 }
