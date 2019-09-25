@@ -196,13 +196,20 @@ void store :: delete_item(){
 
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 void store :: purchase(){
 fstream file;
 store s4;
 int code,flag = 0,temp = 0,amt,bill;
 file.open("database.txt");
+<<<<<<< HEAD
 fstream file1;
 file1.open("temp.txt");
+=======
+>>>>>>> master
 cout<<"Enter code of item : ";
 cin>>code;
 while(file.read((char*)&s4,sizeof(s4))){
@@ -238,6 +245,7 @@ else
 
 }
 
+<<<<<<< HEAD
 
 void store::invoice()
 {
@@ -304,10 +312,34 @@ string getpass(const char *prompt, bool show_asterisk=true)             //This i
 
 void store:: Login(){
     store s5;
+=======
+void store::invoice()
+{
+  cout<<" __________________________________________________________________________ "<<endl;
+  cout<<"|                                 INVOICE                                  |"<<endl;
+  cout<<"|--------------------------------------------------------------------------|"<<endl;
+
+
+  time_t t = time(NULL);
+  tm* tPtr = localtime(&t);
+  cout << "|        Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900;
+  cout << "                    \tTime: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) <<"\t           |"<< endl;
+  cout<<"|                                                                          |"<<endl;
+  cout<<"|                                                                          |"<<endl;
+  cout<<"|  ---------------------------------------------------------------------   |"<<endl;
+  cout<<"|  | Sr.No |  Item Code  |     Item NAME     |   Date of   |   Price   |   |"<<endl;
+  cout<<"|  ---------------------------------------------------------------------   |"<<endl;
+  cout<<"|  | Sr.No |  Item Code  |     Item NAME     |   Date of   |   Price   |   |"<<endl;
+  cout<<"|  ---------------------------------------------------------------------   |"<<endl;``
+}
+void store:: Login(){
+    store i;
+>>>>>>> master
     //system("clear");
     int ch;
     cout<<"\t\t\t\t ----LOGIN PAGE----"<<endl;
     cout<<" 1. Shopkeeper Login\n 2. Customer Login\n 3. Exit"<<endl;
+<<<<<<< HEAD
     cin >> ch;
     switch(ch){
         case 1:
@@ -315,12 +347,21 @@ void store:: Login(){
             break;
         case 2:
             s5.customer_menu();
+=======
+    switch(ch){
+        case 1:
+            i.shopkeeper_pass();
+            break;
+        case 2:
+            i.customer_menu();
+>>>>>>> master
             break;
         case 3:
             return;
     }
 }
 void store :: shopkeeper_pass(){
+<<<<<<< HEAD
     const char *correct_password="null";
     string password=getpass("",true); // Show asterisks
     system("clear");
@@ -351,16 +392,25 @@ void store :: shopkeeper_pass(){
 } while(password!=correct_password);
 store s6;
 s6.Shopkeeper_menu();
+=======
+>>>>>>> master
 
 }
 void store :: customer_menu(){
     store i;
     int ch;
+<<<<<<< HEAD
     system("clear");
     cout<<"\t\t\t ----CUSTOMER MODE----"<<endl;
     cout<<"Enter your choice"<<endl;
     cout<<" 1. Purchase Medicine \n 2. Search Medicine\n 3.";
     cin >> ch;
+=======
+    //system("clear");
+    cout<<"\t\t\t ----CUSTOMER MODE----"<<endl;
+    cout<<"Enter your choice"<<endl;
+    cout<<" 1. Purchase Medicine \n 2. Search Medicine\n 3.";
+>>>>>>> master
     switch (ch) {
         case 1:
             /*Some COde*/
@@ -374,6 +424,7 @@ void store :: customer_menu(){
     }
 }
 void store :: Shopkeeper_menu(){
+<<<<<<< HEAD
     store s7;
     int ch;
     do {
@@ -418,6 +469,37 @@ void store :: Shopkeeper_menu(){
                  wait(1);
                 }
             s7.customer_menu();
+=======
+    store i;
+    int ch;
+    do {
+        //system("clear");
+        cout<<"\t\t\t ----SHOPKEEPER MODE----";
+     cout<<"Enter your choice"<<endl;
+     cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine\n 6. Print Invoice\n 7. Enter Customer Mode\n 0. Exit";
+     cin>>ch;
+     switch(ch){
+        case 1:
+            i.create_item();
+            break;
+        case 2:
+            i.displayALL();
+            break;
+        case 3:
+            i.search_item();
+            break;
+        case 4:
+            i.modify();
+            break;
+        case 5:
+            i.delete_item();
+            break;
+        case 6:
+            i.invoice();
+            break;
+        case 7:
+            i.customer_menu();
+>>>>>>> master
             break;
 
     }
