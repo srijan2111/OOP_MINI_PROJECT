@@ -258,11 +258,11 @@ if (flag == 1){
   file.seekp(pos);
   file.read((char*)&s4,sizeof(s4));
   name=s4.name;
-  cout<<"Enter number of item"<<endl;
+  cout<<"Enter number of item : ";
   cin>>amt;
   if((s4.quantity - amt) >= 0){
   bill = amt * s4.cost  + (0.05 * amt * s4.cost);
-  cout<<round(bill)<<endl;
+  cout<<"Payment to be done : "<<round(bill)<<endl;
   file.seekp(pos);
   s4.quantity = s4.quantity - amt;
   date=s4.DOE;
@@ -293,9 +293,11 @@ if (flag == 1){
     cout<<"item not available";
 }
 else
-  cout<<endl;
-  cout<<"Code not found"<<endl;
-  cout<<endl;
+  {
+    cout<<endl;
+    cout<<"Code not found"<<endl;
+    cout<<endl;
+  }
 
 
 }
