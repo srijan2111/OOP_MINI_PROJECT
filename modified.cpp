@@ -499,7 +499,7 @@ void store :: Shopkeeper_menu(){
             break;
         case 7:
             i.customer_menu();
->>>>>>> master
+>>>>>>> master        //remove this
             break;
 
     }
