@@ -196,6 +196,48 @@ void store :: delete_item(){
 
 }
 
+void store :: purchase(){
+fstream file;
+store s4;
+int code,flag = 0,temp = 0,amt,bill;
+file.open("database.txt");
+fstream file1;
+file1.open("temp.txt");
+cout<<"Enter code of item : ";
+cin>>code;
+while(file.read((char*)&s4,sizeof(s4))){
+  if(code == s4.code){
+    flag = 1;
+    break;
+  }else
+    temp++;
+}
+if (flag == 1){
+  long int pos = (temp)*sizeof(s4);
+  file.seekp(pos);
+  file.read((char*)&s,sizeof(s4));
+  cout<<"Enter number of item"<<endl;
+  cin>>amt;
+  if((s4.quantity - amt) >= 0){
+  bill = amt * s4.cost;
+  cout<<bill;
+  file.seekp(pos);
+  s.quantity = s4.quantity - amt;
+  file.write((char*)&s4,sizeof(s4));
+  file.close();
+}
+  else
+  cout<<"item not available";
+
+
+
+}
+else
+  cout<<"File not found";
+
+
+}
+
 
 void store::invoice()
 {
