@@ -132,6 +132,17 @@ void store :: search_item(){
       case 2:
           cout<<"Enter Name of Item : \n";
           cin>>name;
+
+          while(fin.read((char*)&s1,sizeof(s1))){
+              if(name == s1.name){
+                  flag = 1;
+                  cout<<"Heyyyyyyyyyyyyyyy";
+                  s1.show_item();
+              }
+              }
+          if (flag == 0){
+              cout<<"item not found";
+
           while(fin.read((char*)&s1,sizeof(s1)))
           {
             if(name==s1.name)
@@ -140,6 +151,7 @@ void store :: search_item(){
               s1.show_item();
               //break;
             }
+
           }
           if (flag1 == 0){
               cout<<"Item Not Found";
@@ -502,5 +514,8 @@ int main(){
     store i;
     i.Login();
     return 0;
+
+
+return 0;
 
 }
