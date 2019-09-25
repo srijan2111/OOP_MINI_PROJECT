@@ -42,7 +42,6 @@ void displayALL();
 void search_item();
 void modify();
 void delete_item();
-//void time();
 void invoice();
 void shopkeeper_pass();
 void Shopkeeper_menu();
@@ -86,16 +85,16 @@ void store :: displayALL()
 
 void store :: search_item(){
     fstream fin;
-    store s;
+    store s1;
     //system("clear");
     int code,flag = 0;
     fin.open("database.txt",ios::in);
     cout<<"Enter a Code"<<endl;
     cin>>code;
-    while(fin.read((char*)&s,sizeof(s))){
-        if(code == s.code){
+    while(fin.read((char*)&s1,sizeof(s1))){
+        if(code == s1.code){
             flag = 1;
-            s.show_item();
+            s1.show_item();
         }
 
         }
@@ -111,15 +110,15 @@ void store :: search_item(){
 
 void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar ekda....................
     fstream file;
-    store s;
+    store s2;
     //system("clear");
     int code , flag = 0 , temp = 0;
     //long int pos;
     file.open("database.txt");
     cout<<"Enter a code"<<endl;
     cin>>code;
-    while(file.read((char*)&s,sizeof(s))){
-        if(code == s.code){
+    while(file.read((char*)&s2,sizeof(s2))){
+        if(code == s2.code){
             flag = 1;
             //cout<<"found!";
             return;
@@ -130,11 +129,11 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
     }
 
     if(flag == 1){
-        long int pos = (temp)*sizeof(s);
+        long int pos = (temp)*sizeof(s2);
         file.seekp(pos);
         cout<<"Enter a new record";
-        s.add_item();
-        file.write((char*)&s,sizeof(s));
+        s2.add_item();
+        file.write((char*)&s2,sizeof(s2));
         cout<<"New record Created"<<endl;
 
     }
@@ -152,7 +151,7 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
 void store :: delete_item(){
     fstream file;
     //system("clear");
-    store s;
+    store s3;
     int flag=0;
     long int del;                                       ///for delete
     file.open("database.txt");
@@ -161,11 +160,11 @@ void store :: delete_item(){
     file.seekg(0,ios::beg);
     cout<<"\n\t\tEnter the Item Code: ";
     cin>>del;
-    while(file.read((char*)&s,sizeof(s)))
+    while(file.read((char*)&s3,sizeof(s3)))
 	{
-		if(del!=s.code)
+		if(del!=s3.code)
 		{
-            file1.write((char*)&s,sizeof(s));
+            file1.write((char*)&s3,sizeof(s3));
 		}
 		else
 		{
@@ -191,20 +190,64 @@ void store :: delete_item(){
 }
 
 
+void store :: purchase(){
+fstream file;
+store s4;
+int code,flag = 0,temp = 0,amt,bill;
+file.open("database.txt");
+cout<<"Enter code of item : ";
+cin>>code;
+while(file.read((char*)&s4,sizeof(s4))){
+  if(code == s4.code){
+    flag = 1;
+    break;
+  }else
+    temp++;
+}
+if (flag == 1){
+  long int pos = (temp)*sizeof(s4);
+  file.seekp(pos);
+  file.read((char*)&s,sizeof(s4));
+  cout<<"Enter number of item"<<endl;
+  cin>>amt;
+  if((s4.quantity - amt) >= 0){
+  bill = amt * s4.cost;
+  cout<<bill;
+  file.seekp(pos);
+  s.quantity = s4.quantity - amt;
+  file.write((char*)&s4,sizeof(s4));
+  file.close();
+}
+  else
+  cout<<"item not available";
+
+
+
+}
+else
+  cout<<"File not found";
+
+
+}
+
 void store::invoice()
 {
-//  cout<<"-------------------------------------------------------------------------"<<endl;
-  cout<<" _______________________________________________________________________"<<endl;
-  cout<<"|                               INVOICE                                 |"<<endl;
-  cout<<"|-----------------------------------------------------------------------|"<<endl;
-//cout<<" _______________________________________________________________________"<<endl;
+  cout<<" __________________________________________________________________________ "<<endl;
+  cout<<"|                                 INVOICE                                  |"<<endl;
+  cout<<"|--------------------------------------------------------------------------|"<<endl;
+
+
   time_t t = time(NULL);
   tm* tPtr = localtime(&t);
   cout << "|        Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900;
-  cout << "                    \tTime: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) <<"\t        |"<< endl;
-  cout<<"|                                                                       |"<<endl;
-  cout<<"|                                                                       |"<<endl;
-
+  cout << "                    \tTime: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) <<"\t           |"<< endl;
+  cout<<"|                                                                          |"<<endl;
+  cout<<"|                                                                          |"<<endl;
+  cout<<"|  ---------------------------------------------------------------------   |"<<endl;
+  cout<<"|  | Sr.No |  Item Code  |     Item NAME     |   Date of   |   Price   |   |"<<endl;
+  cout<<"|  ---------------------------------------------------------------------   |"<<endl;
+  cout<<"|  | Sr.No |  Item Code  |     Item NAME     |   Date of   |   Price   |   |"<<endl;
+  cout<<"|  ---------------------------------------------------------------------   |"<<endl;``
 }
 void store:: Login(){
     store i;
