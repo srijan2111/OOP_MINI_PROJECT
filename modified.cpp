@@ -503,8 +503,4 @@ int main(){
     i.Login();
     return 0;
 
-<<<<<<< HEAD
-return 0;
-=======
->>>>>>> 6cf675659e4ffd1926a88ea6d5aa7f123f6c8fb0
 }
