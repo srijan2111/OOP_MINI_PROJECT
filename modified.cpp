@@ -46,15 +46,26 @@ void shopkeeper_pass();
 void Shopkeeper_menu();
 void customer_menu();
 void Login();
+
 };
 
 void store :: create_item(){
   fstream fout;
+  char ch;
   //system("clear");
   store s;
   fout.open("database.txt",ios::app);
-  s.add_item();
-  fout.write((char*)&s,sizeof(s));
+    add:
+    {
+        s.add_item();
+        fout.write((char*)&s,sizeof(s));
+        cout<<"Want to add more items\n(press y)";
+        cin>>ch;
+    }
+    if(ch == 'y' || ch == 'Y'){
+        goto add;
+    }
+
   fout.close();
 }
 
@@ -118,11 +129,11 @@ void store :: search_item(){
 }
 
 
-void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar ekda....................
+void  store :: modify() {
     fstream file;
     store s2;
     //system("clear");
-    int code , flag = 0 , temp = 0;
+    int code ,ch, flag = 0 , temp = 0;
     //long int pos;
     file.open("database.txt");
     cout<<"Enter a code"<<endl;
@@ -130,8 +141,7 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
     while(file.read((char*)&s2,sizeof(s2))){
         if(code == s2.code){
             flag = 1;
-            //cout<<"found!";
-            return;
+            break;
         }
         else
             temp++;
@@ -139,8 +149,35 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
     if(flag == 1){
         long int pos = (temp)*sizeof(s2);
         file.seekp(pos);
-        cout<<"Enter a new record";
-        s2.add_item();
+        cout<<"What do you want to update\n";
+        //s2.add_item();
+        cout<<"\n1.Name\n2.Cost\n3.Quantity.\n4.Expiry date\n5.complete item\n";
+        cin>>ch;
+        switch (ch)
+        {
+        case 1:
+            cout<<"Enter a new name\n";
+            cin>>s2.name;
+            break;
+        case 2:
+            cout<<"Enter a new cost\n";
+            cin>>s2.cost;
+            break;
+        case 3:
+            cout<<"Enter a new quantity\n";
+            cin>>s2.quantity;
+            break;
+        case 4:
+            cout<<"Enter a new Date of expiry\n";
+            cin>>s2.DOE;
+            break;
+        case 5:
+            cout<<"Enter a new record\n";
+            s2.add_item();
+            break;
+        default:
+            break;
+        }
         file.write((char*)&s2,sizeof(s2));
         cout<<"New record Created"<<endl;
     }
@@ -196,7 +233,8 @@ void store :: delete_item(){
 }
 
 
-void store :: purchase(){
+void store :: purchase()
+{
 fstream file;
 store s4;
 int sr_no=1;
@@ -425,6 +463,10 @@ void store :: Shopkeeper_menu(){
             s7.delete_item();
             break;
         case 6:
+            system("clear");
+            s7.invoice();
+            break;
+        case 7:
             system("clear");
             s7.customer_menu();
             return;                               //change to break, there is loop hole
