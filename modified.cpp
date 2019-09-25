@@ -1,5 +1,6 @@
 #include<iostream>
 #include<fstream>
+#include<stdlib.h>
 #include<string.h>
 #include<iomanip>
 #include<stdio.h>
@@ -131,7 +132,7 @@ void store :: search_item(){
           break;
       case 2:
           cout<<"Enter Name of Item : \n";
-          cin>>name;
+          cin.getline(name,20);
           while(fin.read((char*)&s1,sizeof(s1)))
           {
             if(name==s1.name)
