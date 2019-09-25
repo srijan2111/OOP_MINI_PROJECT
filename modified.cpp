@@ -186,6 +186,8 @@ fstream file;
 store s4;
 int code,flag = 0,temp = 0,amt,bill;
 file.open("database.txt");
+fstream file1;
+file1.open("temp.txt");
 cout<<"Enter code of item : ";
 cin>>code;
 while(file.read((char*)&s4,sizeof(s4))){
@@ -205,18 +207,19 @@ if (flag == 1){
   bill = amt * s4.cost;
   cout<<bill;
   file.seekp(pos);
-  s.quantity = s4.quantity - amt;
-  file.write((char*)&s4,sizeof(s4));
+  s4.quantity = s4.quantity - amt;
+
   file.close();
+
 }
   else
-  cout<<"item not available";
+  cout<<"Item not available";
 
 
 
 }
 else
-  cout<<"File not found";
+  cout<<"Item not found";
 
 
 }
