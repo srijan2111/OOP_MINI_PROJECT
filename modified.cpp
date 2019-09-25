@@ -130,7 +130,7 @@ void store :: search_item(){
 }
 
 
-void  store :: modify() {     
+void  store :: modify() {
     fstream file;
     store s2;
     //system("clear");
