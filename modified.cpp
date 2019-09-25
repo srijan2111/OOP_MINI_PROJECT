@@ -255,6 +255,7 @@ void store :: delete_item(){
 		cout<<"\n\n\tRecord Deleted ..";
     }
     cout<<"\n\nPress Enter to return to Main Menu\t\t";
+    cout<<endl<<endl;
     cin.ignore();
     cin.get();
     file.close();
@@ -324,10 +325,10 @@ if (flag == 1){
     cout<<"item not available";
 }
 else
-  cout<<endl;
+{  cout<<endl;
   cout<<"Code not found"<<endl;
   cout<<endl;
-
+}
 
 }
 
@@ -442,9 +443,9 @@ void store :: customer_menu(){
     int ch;
     system("clear");
       while(1){
-        cout<<"\t\t\t ----CUSTOMER MODE----"<<endl;
+        cout<<"\t\t\t ----CUSTOMER MODE----"<<endl<<endl;
         cout<<"Enter your choice"<<endl<<endl;
-        cout<<" 1. Display All Records \n 2. Purchase Medicine \n 3. Search Medicine \n 4. Shopkeeper mode \n\n";
+        cout<<" 1. Display All Records \n 2. Purchase Medicine \n 3. Search Medicine \n 4. Main Menu \n\n";
         cin >> ch;
         switch (ch) {
             case 1:
@@ -458,7 +459,9 @@ void store :: customer_menu(){
                 s8.search_item();
                 break;
             case 4:
-                s8.shopkeeper_pass();
+                system("clear");
+                s8.Login();
+
                 break;
         }
       }
