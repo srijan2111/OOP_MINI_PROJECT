@@ -1,9 +1,12 @@
+ 
 #include<iostream>
 #include<fstream>
 #include<string.h>
 #include<iomanip>
 #include<cstdlib>
 #include<unistd.h>
+#include<ctime>               //for adding date and time
+#include<cmath>
 
 using namespace std;
 
@@ -38,12 +41,13 @@ void displayALL();
 void search_item();
 void modify();
 void delete_item();
-void purchase();
+//void time();
+void invoice();
 };
 
 void store :: create_item(){
   fstream fout;
-  system("clear");
+  //system("clear");
   store s;
   fout.open("database.txt",ios::app);
   s.add_item();
@@ -54,7 +58,7 @@ void store :: create_item(){
 void store :: displayALL()
 {
   store s;
-  system("clear");
+  //system("clear");
   fstream file;
   file.open("database.txt");
   cout<<"------------------------------------------------------------------------------------------------------------------------"<<endl;
@@ -78,7 +82,7 @@ void store :: displayALL()
 void store :: search_item(){
     fstream fin;
     store s;
-    system("clear");
+    //system("clear");
     int code,flag = 0;
     fin.open("database.txt",ios::in);
     cout<<"Enter a Code"<<endl;
@@ -100,36 +104,47 @@ void store :: search_item(){
     fin.close();
 }
 
-void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar ekda....................
+void  store :: modify() {
     fstream file;
     store s;
-    system("clear");
-    int code , flag = 0 , temp = 0;
-    long int pos;
-    file.open("database.txt",ios::in);
+    //system("clear");
+    int flag = 0 , temp = 0;
+    long int code;
+    //long int pos;
+    file.open("database.txt");
+>>>>>>> master
     cout<<"Enter a code"<<endl;
     cin>>code;
     while(file.read((char*)&s,sizeof(s))){
         if(code == s.code){
             flag = 1;
-            break;
+            //cout<<"found!";
+            return;
         }
-        else
+        else{
             temp++;
+        }
+>>>>>>> master
     }
 
     if(flag == 1){
-
-        pos = (temp) * sizeof(s);
+        long int pos = (temp)*sizeof(s);
         file.seekp(pos);
         cout<<"Enter a new record";
         s.add_item();
         file.write((char*)&s,sizeof(s));
         cout<<"New record Created"<<endl;
-        file.close();
+
     }
+    else{
+        cout<<"Item Not Found";
+    }
+
+
     cout<<"\n\nPress Enter to return to Main Menu\t\t";
         cin.ignore();
+        file.close();
+>>>>>>> master
         cin.get();
 
 }
@@ -174,43 +189,20 @@ void store :: delete_item(){
 
 }
 
-void store :: purchase(){
-fstream file;
-store s;
-int code,flag = 0,temp = 0,amt,bill;
-file.open("database.txt
-cout<<"Enter code of item : ";
-cin>>code;
-while(file.read((char*)&s,sizeof(s))){
-  if(code == s.code){
-    flag = 1;
-    break;
-  }else
-    temp++;
-}
-if (flag == 1){
-  long int pos = (temp)*sizeof(s);
-  file.seekp(pos);
-  file.read((char*)&s,sizeof(s));
-  cout<<"Enter number of item"<<endl;
-  cin>>amt;
-  if((s.quantity - amt) >= 0){
-  bill = amt * s.cost;
-  cout<<bill;
-  file.seekp(pos);
-  s.quantity = s.quantity - amt;
-  file.write((char*)&s,sizeof(s));
-  file.close();
-}
-  else
-  cout<<"item not available";
 
-
-
-}
-else
-  cout<<"File not found";
-
+void store::invoice()
+{
+//  cout<<"-------------------------------------------------------------------------"<<endl;
+  cout<<" _______________________________________________________________________"<<endl;
+  cout<<"|                               INVOICE                                 |"<<endl;
+  cout<<"|-----------------------------------------------------------------------|"<<endl;
+//cout<<" _______________________________________________________________________"<<endl;
+  time_t t = time(NULL);
+  tm* tPtr = localtime(&t);
+  cout << "|        Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900;
+  cout << "                    \tTime: " << (tPtr->tm_hour)<<":"<< (tPtr->tm_min)<<":"<< (tPtr->tm_sec) <<"\t        |"<< endl;
+  cout<<"|                                                                       |"<<endl;
+  cout<<"|                                                                       |"<<endl;
 
 }
 
@@ -218,8 +210,13 @@ int main(){
 store i;
 int ch;
 do {
+    //system("clear");
  cout<<"Enter your choice"<<endl;
+<<<<<<< HEAD
+ cout<<" 1. Add Item.\n 2. Display All Records\n 3. Search Item \n 4. Modify Item \n 5. Delete Item\n 6. Print Invoice\n 0. Exit";
+=======
  cout<<"1. Add item.\n2.Display All Records\n 3.Search item \n 4. modify item \n 5.delete item\n 6.Purchase";
+>>>>>>> master
  cin>>ch;
  switch(ch){
     case 1:
@@ -238,8 +235,12 @@ do {
         i.delete_item();
         break;
     case 6:
+<<<<<<< HEAD
+        i.invoice();
+=======
         i.purchase();
         break;
+>>>>>>> master
 
 }
 } while(ch!= 0);
