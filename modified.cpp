@@ -133,7 +133,7 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
         if(code == s2.code){
             flag = 1;
             //cout<<"found!";
-            return;
+            break;
         }
         else
             temp++;
@@ -143,7 +143,7 @@ void  store :: modify() {     //checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk kar e
     if(flag == 1){
         long int pos = (temp)*sizeof(s2);
         file.seekp(pos);
-        cout<<"Enter a new record";
+        cout<<"Enter a new record"<<endl;
         s2.add_item();
         file.write((char*)&s2,sizeof(s2));
         cout<<"New record Created"<<endl;
@@ -303,8 +303,6 @@ void store::invoice()
   cout<<" __________________________________________________________________________ "<<endl;
   cout<<"|                                 INVOICE                                  |"<<endl;
   cout<<"|--------------------------------------------------------------------------|"<<endl;
-
-
   time_t t = time(NULL);
   tm* tPtr = localtime(&t);
   cout << "|        Date: " <<(tPtr->tm_mday)<<"/"<< (tPtr->tm_mon)+1 <<"/"<< (tPtr->tm_year)+1900;
@@ -367,12 +365,11 @@ void store :: shopkeeper_pass(){
         }
         else
             cout <<"Incorrect password. Try again\n"<<endl;
-
 } while(password!=correct_password);
 store s6;
 s6.Shopkeeper_menu();
-
 }
+
 void store :: customer_menu(){
     store s8;
     int ch;
@@ -381,7 +378,7 @@ void store :: customer_menu(){
     while(1){
         cout<<"\t\t\t ----CUSTOMER MODE----"<<endl;
         cout<<"Enter your choice"<<endl;
-        cout<<" 1. Purchase Medicine \n 2. Search Medicine\n 3.Shopkeeper mode";
+        cout<<" 1. Purchase Medicine \n 2. Search Medicine\n 3. Shopkeeper mode\n 0. Exit\n";
         cin >> ch;
         switch (ch) {
             case 1:
@@ -393,6 +390,8 @@ void store :: customer_menu(){
             case 3:
                 s8.shopkeeper_pass();
                 break;
+            case 0:
+                return;
             }
     }
 }
@@ -433,14 +432,14 @@ void store :: Shopkeeper_menu(){
             s7.customer_menu();
             return;
 
-    }
+        }
     } while(ch!= 0);
 
 }
+
+
 int main(){
-store i;
-i.Login();
-
-return 0;
-
+    store i;
+    i.Login();
+    return 0;
 }
