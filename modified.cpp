@@ -134,7 +134,7 @@ void store :: search_item(){
           cin>>name;
           while(fin.read((char*)&s1,sizeof(s1)))
           {
-            if(name==s1.name)
+            if(name == s1.name)
             {
               flag1 = 1;
               s1.show_item();
