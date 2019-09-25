@@ -124,10 +124,9 @@ void store :: search_item(){
               if(code == s1.code){
                   flag = 1;
                   s1.show_item();
-                  break;
               }
               }
-          if (flag == 0){
+              if (flag == 0){
               cout<<"Item Not Found.";}
           break;
       case 2:
@@ -139,13 +138,13 @@ void store :: search_item(){
             {
               flag1 = 1;
               s1.show_item();
-              break;
+              //break;
             }
           }
           if (flag1 == 0){
               cout<<"Item Not Found";
           }
-          break;
+      break;
       }
 
     cout<<"\n\nPress Enter to return to Main Menu\t\t";
