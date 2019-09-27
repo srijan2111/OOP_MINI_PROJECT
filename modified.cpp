@@ -12,11 +12,12 @@ using namespace std;
 
 class store{
 protected:
-  int cost,quantity;
+  float cost;
+  int quantity;
   long int code;
   char name[20],DOE[10];
 public:
-  void add_item(){
+  void add_item(){                                                              //To add a record
     cout<<"CODE : ";
     cin>>code;
     cout<<"NAME : ";
@@ -29,8 +30,7 @@ public:
     cin>>DOE;
     cout<<endl;
   }
-  //cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine \n 6. Enter Customer Mode\n 0. Exit\n\t\t";
-  void show_item(){
+  void show_item(){                                                             //To show a record
       cout<<"\t\tCODE : "<<code<<endl;
       cout<<"\t\tNAME : "<<name<<endl;
       cout<<"\t\tCOST : "<<cost<<endl;
@@ -51,21 +51,20 @@ void Login();
 
 };
 
-void store :: create_item(){
+void store :: create_item(){                                                    //Creating A record
   fstream fout;
   char ch;
-  //system("clear");
   store s;
   fout.open("database.txt",ios::app);
     add:
     {
         s.add_item();
         fout.write((char*)&s,sizeof(s));
-        cout<<"Want to add more items\n(press y)"<<endl;
+        cout<<"Want to add more items\n(press 'y' for Yes, 'n' for No)"<<endl;
         cin>>ch;
         cout<<endl<<endl;
     }
-    if(ch == 'y' || ch == 'Y'){
+    if(ch == 'y' || ch == 'Y'){                                                 //TO check for more
         goto add;
     }
 
@@ -73,26 +72,21 @@ void store :: create_item(){
 }
 
 
-void store :: displayALL()
+void store :: displayALL()                                                      //Displaying All the records stored in database.txt
 {
   store s;
-  //system("clear");
   fstream file;
   file.open("database.txt");
   cout<<" -----------------------------------------------------------------------------------------------------------------------"<<endl;
-  //cout<<"|_______________________________________________________________________________________________________________________|"<<endl;
   cout<<"|"<<setw(15)<<"Item Code"<<"\t|"<<setw(15)<<"Item Name"<<"\t|"<<setw(15)<<"Quantity"<<"\t|"<<setw(15)<<"Cost"<<"\t|"<<setw(15)<<"Expiry Date"<<"\t|"<<endl;
-  //cout<<"|-----------------------------------------------------------------------------------------------------------------------|"<<endl;
   while(file.read((char*)&s,sizeof(s))){
     while (!file.eof()) {
             cout<<"|-----------------------------------------------------------------------------------------------------------------------|"<<endl;
             cout<<"|"<<setw(15)<<s.code<<"\t|"<<setw(15)<<s.name<<"\t|"<<setw(15)<<s.quantity<<"\t|"<<setw(15)<<s.cost<<"\t|"<<setw(15)<<s.DOE<<"\t|"<<endl;
-            //cout<<"|-----------------------------------------------------------------------------------------------------------------------|"<<endl;
             break;
     }
   }
   cout<<" -----------------------------------------------------------------------------------------------------------------------"<<endl;
-     // cout<<"|_______________________________________________________________________________________________________________________|"<<endl;
   cout<<"\n\nPress Enter to return to Main Menu\t\t";
           cin.ignore();
           cin.get();
@@ -100,7 +94,7 @@ void store :: displayALL()
    cout<<endl;
 }
 
-void wait ( int seconds )                   // for creating time wait function
+void wait ( int seconds )                                                       // for creating time wait function
 {
 	clock_t endwait;
 	endwait = clock () + seconds * CLOCKS_PER_SEC ;
@@ -108,10 +102,9 @@ void wait ( int seconds )                   // for creating time wait function
 }
 
 
-void store :: search_item(){
+void store :: search_item(){                                                    // For searching a record
     fstream fin;
     store s1;
-    //system("clear");
     int ch,flag = 0,code;
     int flag1=0;
     char name[20];
@@ -143,7 +136,6 @@ void store :: search_item(){
             {
               flag1 = 1;
               s1.show_item();
-              //break;
             }
           }
           if (flag1 == 0){
@@ -159,12 +151,10 @@ void store :: search_item(){
 }
 
 
-void  store :: modify() {
+void  store :: modify() {                                                       //Modifying a record
     fstream file;
     store s2;
-    //system("clear");
     int code ,ch, flag = 0 , temp = 0;
-    //long int pos;
     file.open("database.txt");
     cout<<endl;
     cout<<"Enter Code: ";
@@ -180,31 +170,34 @@ void  store :: modify() {
     if(flag == 1){
         long int pos = (temp)*sizeof(s2);
         file.seekp(pos);
-        cout<<"What do you want to update\n";
-        //s2.add_item();
-        cout<<"\n1. Name\n2. Cost\n3. Quantity.\n4. Expiry date\n5. Complete Record\n";
+        cout<<"What do you want to update\n";                                   // Modifying any particular of the record
+        cout<<"\n0. Code\n1. Name\n2. Cost\n3. Quantity.\n4. Expiry date\n5. Complete Record\n";
         cin>>ch;
         cout<<endl<<endl;
         switch (ch)
         {
+        case 0:
+            cout<<"Enter Code: ";
+            cin>>s2.code;
+            break;
         case 1:
-            cout<<"Enter Name\n";
+            cout<<"Enter Name: ";
             cin>>s2.name;
             break;
         case 2:
-            cout<<"Enter Cost\n";
+            cout<<"Enter Cost: ";
             cin>>s2.cost;
             break;
         case 3:
-            cout<<"Enter Quantity\n";
+            cout<<"Enter Quantity: ";
             cin>>s2.quantity;
             break;
         case 4:
-            cout<<"Enter Expiry Date (dd/mm/yyyy)\n";
+            cout<<"Enter Expiry Date (dd/mm/yyyy): ";
             cin>>s2.DOE;
             break;
         case 5:
-            cout<<"Enter New Record: \n";
+            cout<<"Enter New Record:\n";
             s2.add_item();
             break;
         default:
@@ -226,10 +219,9 @@ void  store :: modify() {
 
 void store :: delete_item(){
     fstream file;
-    //system("clear");
     store s3;
     int flag=0;
-    long int del;                                       ///for delete
+    long int del;                                                               //for delete
     file.open("database.txt");
     fstream file1;
     file1.open("tempdel.txt",ios::app);
@@ -240,7 +232,7 @@ void store :: delete_item(){
 	{
 		if(del!=s3.code)
 		{
-            file1.write((char*)&s3,sizeof(s3));
+            file1.write((char*)&s3,sizeof(s3));                                 //writing contents into temp file
 		}
 		else
 		{
@@ -266,7 +258,7 @@ void store :: delete_item(){
 }
 
 
-void store :: purchase()
+void store :: purchase()                                                        //Purchasing a Medicine
 {
 fstream file;
 store s4;
@@ -278,7 +270,7 @@ file.open("database.txt");
 cout<<endl<<endl;
 cout<<"Enter code of item : ";
 cin>>code;
-while(file.read((char*)&s4,sizeof(s4))){
+while(file.read((char*)&s4,sizeof(s4))){                                        //Searching the record
   if(code == s4.code){
     flag = 1;
     break;
@@ -300,7 +292,7 @@ if (flag == 1){
   date=s4.DOE;
   file.write((char*)&s4,sizeof(s4));
   cout<<endl<<endl<<endl;
-  cout<<" __________________________________________________________________________________________________ "<<endl;
+  cout<<" __________________________________________________________________________________________________ "<<endl;                       //Generating the INVOICE
   cout<<"|                                             INVOICE                                              |"<<endl;
   cout<<"|--------------------------------------------------------------------------------------------------|"<<endl;
   time_t t = time(NULL);
@@ -333,7 +325,7 @@ else
 }
 
 
-int getch() {                                       //getting character
+int getch() {                                                                   //getting character
     int ch;
     struct termios t_old, t_new;
     tcgetattr(STDIN_FILENO, &t_old);
@@ -346,7 +338,7 @@ int getch() {                                       //getting character
 }
 
 
-string getpass(const char *prompt, bool show_asterisk=true)             //This is to get the password and convert it into asterisks(*)
+string getpass(const char *prompt, bool show_asterisk=true)                     //This is to get the password and convert it into asterisks(*)
 {
   const char BACKSPACE=127;
   const char RETURN=10;
@@ -378,9 +370,8 @@ string getpass(const char *prompt, bool show_asterisk=true)             //This i
 
 
 
-void store:: Login(){
+void store:: Login(){                                                           //Main Login Page
     store s5;
-    //system("clear");
     int ch;
     cout<<"\t\t\t\t ----LOGIN PAGE----"<<endl;
     cout<<" 1. Shopkeeper Login\n 2. Customer Login\n 3. Exit"<<endl;
@@ -398,13 +389,9 @@ void store:: Login(){
 }
 
 
-void store :: shopkeeper_pass(){
+void store :: shopkeeper_pass(){                                                //Accepting The password
     const char *correct_password="null";
-    string password=getpass("",true); // Sho        // case 6:
-        //     system("clear");
-        //     //s7.invoice();
-        //     break;w asterisks
-    //system("clear");
+    string password=getpass("",true);
     system("clear");
     do {
         string password=getpass("\bPlease enter the password: ",true); // Show asterisks
@@ -438,14 +425,14 @@ s6.Shopkeeper_menu();
 
 
 
-void store :: customer_menu(){
+void store :: customer_menu(){                                                  //Customer Mode Menu
     store s8;
     int ch;
     system("clear");
       while(1){
         cout<<"\t\t\t ----CUSTOMER MODE----"<<endl<<endl;
         cout<<"Enter your choice"<<endl<<endl;
-        cout<<" 1. Display All Records \n 2. Purchase Medicine \n 3. Search Medicine \n 4. Main Menu \n\n";
+        cout<<" 1. Display All Records \n 2. Purchase Medicine \n 3. Search Medicine \n 4. Main Menu \n 5. Exit\n\n";
         cin >> ch;
         switch (ch) {
             case 1:
@@ -461,8 +448,10 @@ void store :: customer_menu(){
             case 4:
                 system("clear");
                 s8.Login();
-
                 break;
+            case 5:
+                cout<<"\nThank You! \nVisit Again!\n";
+                return;
         }
       }
 
@@ -470,13 +459,11 @@ void store :: customer_menu(){
 
 
 
-void store :: Shopkeeper_menu(){
+void store :: Shopkeeper_menu(){                                                //Shopkeeper Mode Menu
     system("clear");
     store s7;
     int ch;
     do {
-        //system("clear");
-        //cout<<endl<<endl;
         cout<<"\t\t\t ----SHOPKEEPER MODE----"<<endl;
      cout<<"Enter your choice"<<endl;
      cout<<" 1. Add Medicine\n 2. Display All Records\n 3. Search Medicine \n 4. Modify Medicine \n 5. Delete Medicine \n 6. Enter Customer Mode\n 0. Exit\n";
@@ -505,6 +492,7 @@ void store :: Shopkeeper_menu(){
             system("clear");
             s7.customer_menu();
             return;
+            //break;
     }
     } while(ch!= 0);
 }
@@ -512,6 +500,6 @@ int main(){
     system("clear");
     store i;
     i.Login();
-    return 0;
+return 0;
 
 }
